@@ -1,14 +1,26 @@
 package com.youngdong.woowahan.domain;
 
+import org.hibernate.annotations.Cache;
+
+import javax.persistence.*;
 import java.util.Locale;
 
 //    UID   int          not null auto_increment primary key,
 //    Email varchar(100) not null,
 //    Name  varchar(40) not null,
+@Entity
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "UID")
     private Long uid;
-    private String name;
+
+    @Column(name = "Email")
     private String email;
+
+    @Column(name = "Name")
+    private String name;
+
 
     public Long getUid() {
         return uid;
@@ -40,9 +52,6 @@ public class User {
             throw new IllegalStateException("회원 이름과 이메일 정보가 없습니다");
         }
 
-        if (this.getEmail().isEmpty()) {
-            throw new IllegalStateException("회원 이메일 정보가 없습니다");
-        }
         if (this.getName().isEmpty()) {
             throw new IllegalStateException("회원 이름 정보가 없습니다");
         }

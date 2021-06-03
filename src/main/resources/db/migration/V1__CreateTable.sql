@@ -1,4 +1,4 @@
-create table User
+create table user
 (
     UID   int          not null auto_increment primary key,
     Email varchar(100) not null,
@@ -8,7 +8,7 @@ create table User
     UpdatedAt timestamp not null default current_timestamp on update current_timestamp
 );
 
-create table Book
+create table book
 (
     BID       int          not null auto_increment primary key,
     Title     varchar(100) not null,
@@ -19,15 +19,15 @@ create table Book
     UpdatedAt timestamp not null default current_timestamp on update current_timestamp
 );
 
-create table Contents
+create table contents
 (
     EID     int          not null auto_increment primary key,
 
     User_UID     int ,
-    FOREIGN KEY (User_UID) REFERENCES User (UID),
+    FOREIGN KEY (User_UID) REFERENCES user (UID),
 
     Book_BID     int,
-    FOREIGN KEY (Book_BID) REFERENCES Book (BID),
+    FOREIGN KEY (Book_BID) REFERENCES book (BID),
 
     Page    int not null,
     Contents varchar(200) not null,

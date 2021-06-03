@@ -68,6 +68,60 @@ public class UserRepositoryTest {
 
     @Test
     public void checkWorngEmail1(){
+
+        //+ 랜덤으로 앞 뒤 공백 추가
+        String[] invaildTestCase = {
+                "  @naver.com ",            // ('계정',)없음
+                "zeroistfilmnaver.com ",    // ('@',)없음
+                "zeroistfilm@.com ",        // ('도메인',)없음
+                "zeroistfilm@navercom ",    // ('.',)없음
+                "zeroistfilm@naver. ",      // ('최상위 도메인',)없음
+                "  naver.com ",             // ('계정', '@')없음
+                "@.com ",                   // ('계정', '도메인')없음
+                "@navercom ",               // ('계정', '.')없음
+                " @naver. ",                // ('계정', '최상위 도메인')없음
+                "zeroistfilm.com ",         // ('@', '도메인')없음
+                " zeroistfilmnavercom ",    // ('@', '.')없음
+                "zeroistfilmnaver. ",       // ('@', '최상위 도메인')없음
+                " zeroistfilm@com ",        // ('도메인', '.')없음
+                "    zeroistfilm@. ",       // ('도메인', '최상위 도메인')없음
+                "    zeroistfilm@naver ",   // ('.', '최상위 도메인')없음
+                ".com ",                    // ('계정', '@', '도메인')없음
+                "   navercom ",             // ('계정', '@', '.')없음
+                "naver. ",                  // ('계정', '@', '최상위 도메인')없음
+                "@com ",                    // ('계정', '도메인', '.')없음
+                "@. ",                      // ('계정', '도메인', '최상위 도메인')없음
+                "  @naver ",                // ('계정', '.', '최상위 도메인')없음
+                "zeroistfilmcom ",          // ('@', '도메인', '.')없음
+                "   zeroistfilm. ",         // ('@', '도메인', '최상위 도메인')없음
+                "zeroistfilmnaver ",        // ('@', '.', '최상위 도메인')없음
+                "   zeroistfilm@ ",         // ('도메인', '.', '최상위 도메인')없음
+                "com ",                     // ('계정', '@', '도메인', '.')없음
+                ". ",                       // ('계정', '@', '도메인', '최상위 도메인')없음
+                "naver ",                   // ('계정', '@', '.', '최상위 도메인')없음
+                "@ ",                       // ('계정', '도메인', '.', '최상위 도메인')없음
+                "zeroistfilm ",             // ('@', '도메인', '.', '최상위 도메인')없음
+                "",                         // (계정', '@', '도메인', '.', '최상위 도메인')없음
+        };
+        for (String casei : invaildTestCase){
+            //given
+            String email = casei;
+            String name = "youngdongkim";
+
+            //when
+            User user = new User();
+            user.setName(name);
+            user.setEmail(email);
+
+            //then
+            boolean result = user.isVailidEmail(user.getEmail());
+            org.junit.jupiter.api.Assertions.assertFalse(result);
+
+        }
+    }
+
+    @Test
+    public void invaildemailassert(){
         //given
         //+ 랜덤으로 앞 뒤 공백 추가
         String[] invaildTestCase = {
@@ -103,8 +157,7 @@ public class UserRepositoryTest {
                 "zeroistfilm ",             // ('@', '도메인', '.', '최상위 도메인')없음
                 "",                         // (계정', '@', '도메인', '.', '최상위 도메인')없음
         };
-
-        for (String casei : invaildTestCase){
+        for (String casei : invaildTestCase) {
             //given
             String email = casei;
             String name = "youngdongkim";
@@ -115,16 +168,17 @@ public class UserRepositoryTest {
             user.setEmail(email);
 
             //then
-            boolean result = user.isVailidEmail(user.getEmail());
-            org.junit.jupiter.api.Assertions.assertFalse(result);
-
+            try {
+                user.isVailid();
+                fail();
+            } catch (IllegalStateException e) {
+                Assertions.assertThat(e.getMessage()).isEqualTo("회원 이메일 정보가 양식에 맞지 않습니다");
+            }
         }
     }
 
-
     @Test
     public void checkCorrectEmail1(){
-        //given
         //http://www.moakt.com/ko/mail 에서 자동 생성함
         String[] vaildTestCase = {
                 "i9ubnomnl@tmail.ws",
@@ -140,7 +194,6 @@ public class UserRepositoryTest {
                 "fjihbqlef@tmail.ws",
                 "lnqsesbrl@tmail.ws"
         };
-
         for (String casei : vaildTestCase){
             //given
             String email = casei;
@@ -154,8 +207,10 @@ public class UserRepositoryTest {
             //then
             boolean result = user.isVailidEmail(user.getEmail());
             org.junit.jupiter.api.Assertions.assertTrue(result);
-
         }
     }
 
+
+
 }
+

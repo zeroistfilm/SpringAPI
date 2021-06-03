@@ -1,6 +1,8 @@
 package com.youngdong.woowahan.domain;
 
 
+import javax.persistence.*;
+
 //    EID     int          not null auto_increment primary key,
 //
 //    User_UID     int ,
@@ -11,11 +13,23 @@ package com.youngdong.woowahan.domain;
 //
 //    Page    int not null,
 //    Contents varchar(200) not null,
+@Entity
 public class Contents {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "EID")
     private Long eid;
+
+    @Column(name = "User_UID")
     private Long uid;
+
+    @Column(name = "Book_BID")
     private Long bid;
+
+    @Column(name = "Page")
     private Integer page;
+
+    @Column(name = "Contents")
     private String contents;
 
 
