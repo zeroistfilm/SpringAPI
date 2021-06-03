@@ -9,7 +9,6 @@ create table user
 );
 
 create table book
-(
     BID       int          not null auto_increment primary key,
     Title     varchar(100) not null,
     Author    varchar(40)  not null,
