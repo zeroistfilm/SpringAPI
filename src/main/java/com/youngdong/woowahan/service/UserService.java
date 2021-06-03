@@ -28,7 +28,7 @@ public class UserService {
         return user.getUid();
     }
 
-    public List<User> findUsers(){
+    public List<User> findAll(){
         return userRepository.findAll();
     }
 

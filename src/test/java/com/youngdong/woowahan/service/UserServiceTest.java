@@ -23,6 +23,7 @@ class UserServiceTest {
     UserRepository userRepository;
 
     @Test
+    @Commit
     void UserInsert(){
         //given
         User user = new User();

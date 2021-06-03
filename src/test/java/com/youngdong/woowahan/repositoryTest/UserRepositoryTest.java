@@ -125,11 +125,11 @@ public class UserRepositoryTest {
         //given
         //+ 랜덤으로 앞 뒤 공백 추가
         String[] invaildTestCase = {
-                "  @naver.com ",            // ('계정',)없음
-                "zeroistfilmnaver.com ",    // ('@',)없음
-                "zeroistfilm@.com ",        // ('도메인',)없음
-                "zeroistfilm@navercom ",    // ('.',)없음
-                "zeroistfilm@naver. ",      // ('최상위 도메인',)없음
+                "  @naver.com ",            // ('계정')없음
+                "zeroistfilmnaver.com ",    // ('@')없음
+                "zeroistfilm@.com ",        // ('도메인')없음
+                "zeroistfilm@navercom ",    // ('.')없음
+                "zeroistfilm@naver. ",      // ('최상위 도메인')없음
                 "  naver.com ",             // ('계정', '@')없음
                 "@.com ",                   // ('계정', '도메인')없음
                 "@navercom ",               // ('계정', '.')없음
