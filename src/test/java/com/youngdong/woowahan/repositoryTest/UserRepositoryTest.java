@@ -3,6 +3,7 @@ package com.youngdong.woowahan.repositoryTest;
 import com.youngdong.woowahan.domain.User;
 import com.youngdong.woowahan.repository.UserRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class UserRepositoryTest {
 
     @Test
+    @DisplayName("func 유저객체생성")
     public void createVailidUser(){
         //given
         String email = "zeroistfilm@naver.com";
@@ -29,6 +31,7 @@ public class UserRepositoryTest {
 
 
     @Test
+    @DisplayName("func 빈 이름 assert")
     public void createInvailidUserNameEmpty(){
         //given
         String email = "zeroistfilm@naver.com";
@@ -48,6 +51,7 @@ public class UserRepositoryTest {
     }
 
     @Test
+    @DisplayName("func 빈 이름,빈 이메일 assert")
     public void createInvailidUserNameAndEmailEmpty(){
         //given
         String email = "";
@@ -67,6 +71,7 @@ public class UserRepositoryTest {
     }
 
     @Test
+    @DisplayName("func 잘못된이메일 T/F")
     public void checkWorngEmail1(){
 
         //+ 랜덤으로 앞 뒤 공백 추가
@@ -121,6 +126,7 @@ public class UserRepositoryTest {
     }
 
     @Test
+    @DisplayName("func 잘못된이메일 assert")
     public void invaildemailassert(){
         //given
         //+ 랜덤으로 앞 뒤 공백 추가
@@ -178,6 +184,7 @@ public class UserRepositoryTest {
     }
 
     @Test
+    @DisplayName("func 올바른이메일체크")
     public void checkCorrectEmail1(){
         //http://www.moakt.com/ko/mail 에서 자동 생성함
         String[] vaildTestCase = {

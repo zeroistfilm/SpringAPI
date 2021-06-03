@@ -1,5 +1,36 @@
 # woowahanAssignment
 
+Request table
+    
+User 
+Create
+요청 
+POST http://localhost:8080/users/new
+Content-Type: application/json
+
+{
+"name": "테스트테스트",
+"email": "zeroistfilm@naver.com"
+}
+성공 201 json
+실패 400 회원 이름 정보가 없습니다
+실패 400 회원 회원 이름과 이메일 정보가 없습니다
+실패 400 회원 이메일 정보가 양식에 맞지 않습니다
+
+Read
+-all GET http://localhost:8080/users/all
+-one GET http://localhost:8080/users/?id=1
+
+성공 200 json
+성공-값없음 204 null
+실패 500 Could not open JPA EntityManager for transaction; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection // DB연결 불가
+
+Update
+  -put
+  -patch
+Delete
+
+
 과정
 1. docker를 통해 로컬 mysql container생성.
 ```

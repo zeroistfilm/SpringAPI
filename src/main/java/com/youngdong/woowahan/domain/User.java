@@ -1,5 +1,6 @@
 package com.youngdong.woowahan.domain;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Cache;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -11,6 +12,7 @@ import java.util.Locale;
 //    Email varchar(100) not null,
 //    Name  varchar(40) not null,
 @Entity
+@Slf4j
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +24,6 @@ public class User {
 
     @Column(name = "Name")
     private String name;
-
 
     public Long getUid() {
         return uid;
@@ -51,25 +52,20 @@ public class User {
     public void isVailid() {
 
         if (this.getName().isEmpty() && this.getEmail().isEmpty()) {
+//            log.info("Invaild User data : No user name and email");
             throw new IllegalStateException("회원 이름과 이메일 정보가 없습니다");
         }
 
         if (this.getName().isEmpty()) {
+//            log.info("Invaild User data : No user name");
             throw new IllegalStateException("회원 이름 정보가 없습니다");
         }
 
         if (!isVailidEmail(this.getEmail())) {
+//            log.info("Invaild User data : Invaild email");
             throw new IllegalStateException("회원 이메일 정보가 양식에 맞지 않습니다");
         }
 
-    }
-
-    public String toJson() {
-        return "{" +
-                "'uid' : '" + uid + "' "+
-                ", 'email='" + email + '\'' +
-                ", name='" + name + '\'' +
-                '}';
     }
 
     public boolean isVailidEmail(String email) {
@@ -99,8 +95,6 @@ public class User {
         } else {
             return false;
         }
-
-
     }
 
 }
