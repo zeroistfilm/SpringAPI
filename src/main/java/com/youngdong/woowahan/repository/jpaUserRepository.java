@@ -27,23 +27,23 @@ public class jpaUserRepository implements UserRepository{
         return Optional.ofNullable(user);
     }
 
-    @Override
-    public Optional<User> findForPages(Integer page) {
-        return Optional.empty();
-    }
-
-    @Override
-    public User updateName(User user, String newname) {
-
-//        //findbyname
-//        List<User> result = em.createQuery("select u from User as u where u.name = :name", User.class)
-//                .setParameter("name", newname)
-//                .getResultList();
+//    @Override
+//    public Optional<User> findForPages(Integer page) {
+//        return Optional.empty();
+//    }
 //
-//        return result.stream().findAny();
-
-        return null;
-    }
+//    @Override
+//    public User updateName(User user, String newname) {
+//
+////        //findbyname
+////        List<User> result = em.createQuery("select u from User as u where u.name = :name", User.class)
+////                .setParameter("name", newname)
+////                .getResultList();
+////
+////        return result.stream().findAny();
+//
+//        return null;
+//    }
 
     @Override
     public List<User> findAll() {

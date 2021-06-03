@@ -16,7 +16,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createUser(User user){
+    public Long join(User user){
 
         try{
             user.isVailid();
@@ -24,9 +24,8 @@ public class UserService {
             //api throw 구현해야함
             System.out.println(e.getMessage());
         }
-
         userRepository.save(user);
-        return user;
+        return user.getUid();
     }
 
     public List<User> findUsers(){

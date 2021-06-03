@@ -8,7 +8,5 @@ import java.util.Optional;
 public interface UserRepository {
     User save(User user);
     Optional<User> findById(Long id);
-    Optional<User> findForPages(Integer page);
-    User updateName(User user, String newname);
     List<User> findAll();
 }
