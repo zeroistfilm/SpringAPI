@@ -1,5 +1,6 @@
 package com.youngdong.woowahan.config;
 
+import com.youngdong.woowahan.aop.TimeTraceAop;
 import com.youngdong.woowahan.repository.UserRepository;
 import com.youngdong.woowahan.repository.jpaUserRepository;
 import com.youngdong.woowahan.service.UserService;
@@ -26,6 +27,10 @@ public class SpringConfig {
         return new UserService(userRepository);
     }
 
+//    @Bean
+//    public TimeTraceAop timeTraceAop(){
+//        return new TimeTraceAop();
+//    }
 //    @Bean
 //    public UserRepository userRepository(){
 ////        return new jpaUserRepository(em);

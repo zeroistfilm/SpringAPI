@@ -27,6 +27,16 @@ public class jpaUserRepository implements UserRepository{
         return Optional.ofNullable(user);
     }
 
+    @Override
+    public Optional<User> findByName(String name) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return Optional.empty();
+    }
+
 //    @Override
 //    public Optional<User> findForPages(Integer page) {
 //        return Optional.empty();
