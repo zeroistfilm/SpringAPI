@@ -56,7 +56,7 @@ public class User {
 
     public boolean isVailidEmail(String email) {
 
-        //앞 뒤 트림
+        //앞 뒤 공백 문자 제거
         email = email.trim();
 
         //@기준 분리
@@ -66,7 +66,7 @@ public class User {
         }
 
         //.기준 분리
-        String[] domainToTopDomain = splited[1].split("\\.");
+       String[] domainToTopDomain = splited[1].split("\\.");
         if (domainToTopDomain.length != 2) { //. 없음.
             return false;
         }
