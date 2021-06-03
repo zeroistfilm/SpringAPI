@@ -59,4 +59,9 @@ create table Excerption
    - 4.3 이메일 테스트 실행<br>
 
 
-5. domain 비지니스 로직 작성
+5. domain 비지니스 로직 작성<br>
+
+6. Spring Data JPA
+   <br>
+   - 6.1 비지니스 로직에서 할 것과 SD JPA 매서드 잘 구분해야 한다.
+     (비지니스 로직에서 구현 해야 할 것을 DB메서드로 구현 하려고 하니 SDJPA가 올바른 메서드를 생성하지 못함)
