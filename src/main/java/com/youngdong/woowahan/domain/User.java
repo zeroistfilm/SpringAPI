@@ -1,6 +1,8 @@
 package com.youngdong.woowahan.domain;
 
 import org.hibernate.annotations.Cache;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.persistence.*;
 import java.util.Locale;
@@ -62,6 +64,13 @@ public class User {
 
     }
 
+    public String toJson() {
+        return "{" +
+                "'uid' : '" + uid + "' "+
+                ", 'email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 
     public boolean isVailidEmail(String email) {
 
