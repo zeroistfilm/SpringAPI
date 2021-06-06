@@ -20,8 +20,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import javax.transaction.Transactional;
 import java.util.Random;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -70,7 +69,7 @@ class UserServiceTest {
         obj.addProperty("email", user.getEmail());
 
 
-        mockMvc.perform(post("/users/new")
+        mockMvc.perform(post("/user/new")
                 .content(obj.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8"))
@@ -93,7 +92,7 @@ class UserServiceTest {
         obj.addProperty("email", user.getEmail());
 
 
-        mockMvc.perform(post("/users/new")
+        mockMvc.perform(post("/user/new")
                 .content(obj.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8"))
@@ -148,7 +147,7 @@ class UserServiceTest {
             obj.addProperty("name", user.getName());
             obj.addProperty("email", user.getEmail());
 
-            mockMvc.perform(post("/users/new")
+            mockMvc.perform(post("/user/new")
                     .content(obj.toString())
                     .contentType(MediaType.APPLICATION_JSON)
                     .characterEncoding("UTF-8"))
@@ -178,7 +177,7 @@ class UserServiceTest {
         obj.addProperty("email", newEmail);
 
         //then
-        mockMvc.perform(post("/users").param("id", String.valueOf(saveID))
+        mockMvc.perform(put("/user").param("id", String.valueOf(saveID))
                 .content(obj.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8"))
@@ -187,6 +186,28 @@ class UserServiceTest {
 
     }
 
+    @Test
+    @DisplayName("HTTP 유저정보 수정 // UID 오류")
+    void HTTP유저정보수정InvaildID() throws Exception {
+
+        //when
+        String newName = "newName";
+        String newEmail = "new@new.new";
+
+        JsonObject obj = new JsonObject();
+        obj.addProperty("name", newName);
+        obj.addProperty("email", newEmail);
+
+        //then
+        mockMvc.perform(put("/user").param("id", "9999999999999")
+                .content(obj.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8"))
+                .andDo(print())
+                .andExpect(status().isNoContent())
+                .andExpect(status().reason("요청한 User ID가 데이터 베이스에 존재하지 않습니다"));
+
+    }
 
     @Test
     @DisplayName("HTTP 유저데이터 페이징")
@@ -210,24 +231,20 @@ class UserServiceTest {
             //when
             Random random = new Random();
             int requestpage = random.nextInt(30);
-            int pagesize = random.nextInt(30);
+            int pagesize = random.nextInt(30)+1;
 
             Pageable sortedById = PageRequest.of(requestpage, pagesize, Sort.by("uid"));
             Page<User> allpages = this.userService.findAll(sortedById);
 
             ResultMatcher result;
-            Boolean showResult;
             if (requestpage > allpages.getTotalPages()) {
                 result = status().isBadRequest();
-                showResult = false;
             } else {
                 result = status().isOk();
-                showResult = true;
             }
-            System.out.println("Test Info "+pagesize+" "+requestpage+" "+showResult);
 
             //then
-            mockMvc.perform(get("/users/allPages")
+            mockMvc.perform(get("/user/allPages")
                     .param("pagesize", String.valueOf(pagesize))
                     .param("requestpage", String.valueOf(requestpage)))
                     .andDo(print())
