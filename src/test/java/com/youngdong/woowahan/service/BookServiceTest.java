@@ -240,7 +240,7 @@ class BookServiceTest {
             }
 
             //then
-            mockMvc.perform(get("/users/allPages")
+            mockMvc.perform(get("/book/allPages")
                     .param("pagesize", String.valueOf(pagesize))
                     .param("requestpage", String.valueOf(requestpage)))
                     .andDo(print())

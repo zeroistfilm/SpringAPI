@@ -76,16 +76,16 @@ public class BookAPIController {
     @GetMapping("/book/allPages")
     @ResponseStatus(value = HttpStatus.OK) //200
     public Page readBookAllpages(@RequestParam("pagesize") int pagesize, @RequestParam("requestpage") int requestpage) {
-        Pageable sortedById = PageRequest.of(requestpage, pagesize, Sort.by("uid"));
+        Pageable sortedById = PageRequest.of(requestpage, pagesize, Sort.by("bid"));
         Page<Book> allpages = this.bookService.findAll(sortedById);
 
         if (requestpage > allpages.getTotalPages()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "페이지 범위를 초과하는 요청입니다 MaxPage : " + allpages.getTotalPages(), new IndexOutOfBoundsException());
         }
         if (allpages.isEmpty()) {
-            log.info("Fail Read All Users");
+            log.info("Fail Read All books");
         }
-        log.info("Success Read All Users");
+        log.info("Success Read All books");
         return allpages;
     }
 
