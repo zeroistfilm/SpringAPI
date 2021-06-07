@@ -24,12 +24,12 @@ create table contents
     CID     bigint not null auto_increment primary key,
 
     User_UID     bigint ,
-    FOREIGN KEY (User_UID) REFERENCES user (UID),
+    FOREIGN KEY (User_UID) REFERENCES user ( UID),
 
     Book_BID     bigint,
     FOREIGN KEY (Book_BID) REFERENCES book (BID),
 
-    Page    bigint not null,
+    Page    int not null,
     Contents varchar(255) not null,
 
     CreatedAt timestamp not null default current_timestamp,

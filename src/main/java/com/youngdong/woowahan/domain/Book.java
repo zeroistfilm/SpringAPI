@@ -2,6 +2,7 @@ package com.youngdong.woowahan.domain;
 
 import com.google.gson.JsonObject;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 
@@ -9,8 +10,8 @@ import javax.persistence.*;
 //    Title     varchar(100) not null,
 //    Author    varchar(40)  not null,
 //    Publisher varchar(40)  not null,
-
 @Entity
+@Slf4j
 @NoArgsConstructor
 public class Book {
     @Id

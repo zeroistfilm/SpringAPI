@@ -3,6 +3,7 @@ package com.youngdong.woowahan.domain;
 
 import com.google.gson.JsonObject;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 
@@ -17,6 +18,7 @@ import javax.persistence.*;
 //    Page    int not null,
 //    Contents varchar(200) not null,
 @Entity
+@Slf4j
 @NoArgsConstructor
 public class Contents {
     @Id

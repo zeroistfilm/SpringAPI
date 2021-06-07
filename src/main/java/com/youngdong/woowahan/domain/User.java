@@ -1,5 +1,6 @@
 package com.youngdong.woowahan.domain;
 
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Cache;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.Locale;
 //    Name  varchar(40) not null,
 @Entity
 @Slf4j
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
