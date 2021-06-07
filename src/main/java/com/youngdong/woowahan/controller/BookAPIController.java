@@ -32,7 +32,7 @@ public class BookAPIController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public String saveBook(@RequestBody Book book) {
         try {
-            book.isvailid();
+            book.isVailid();
             Long resultId = this.bookService.join(book);
             JsonObject obj = new JsonObject();
             obj.addProperty("bid", resultId);
@@ -94,7 +94,7 @@ public class BookAPIController {
     @PutMapping("/book")
     @ResponseStatus(value = HttpStatus.CREATED) //201
     public void editUserInfo(@RequestParam("id") Long id, @RequestBody Book book) {
-        book.isvailid();
+        book.isVailid();
         Optional<Book> findbook = this.bookService.findById(id);
         findbook.ifPresentOrElse(
                 selectbook -> {

@@ -42,9 +42,7 @@ class UserServiceTest {
     @DisplayName("JPA 올바른유저등록")
     void UserInsert() {
         //given
-        User user = new User();
-        user.setName("youngdong");
-        user.setEmail("zeroistfilm@naver.com");
+        User user = new User("youngdong","zeroistfilm@naver.com");
 
         user.isVailid();
         //when
@@ -59,11 +57,7 @@ class UserServiceTest {
     @DisplayName("HTTP 이름빈유저등록")
     void http유저등록빈이름() throws Exception {
         //given
-        User user = new User();
-        user.setName("");
-        user.setEmail("zeroistfilm@naver.com");
-
-
+        User user = new User("","zeroistfilm@naver.com" );
         JsonObject obj = new JsonObject();
         obj.addProperty("name", user.getName());
         obj.addProperty("email", user.getEmail());
@@ -82,9 +76,7 @@ class UserServiceTest {
     @DisplayName("HTTP 올바른 유저 등록")
     void http유저등록() throws Exception {
         //given
-        User user = new User();
-        user.setName("youngdong");
-        user.setEmail("zeroistfilm@naver.com");
+        User user = new User("youngdong","zeroistfilm@naver.com" );
 
 
         JsonObject obj = new JsonObject();
@@ -140,9 +132,7 @@ class UserServiceTest {
         };
 
         for (String casei : invaildTestCase) {
-            User user = new User();
-            user.setName("anonymous");
-            user.setEmail(casei);
+            User user = new User("anonymous", casei);
             JsonObject obj = new JsonObject();
             obj.addProperty("name", user.getName());
             obj.addProperty("email", user.getEmail());
@@ -162,9 +152,7 @@ class UserServiceTest {
     @DisplayName("HTTP 유저정보 수정")
     void HTTP유저정보수정() throws Exception {
         //given
-        User user = new User();
-        user.setName("youngdong");
-        user.setEmail("zeroistfilm@naver.com");
+        User user = new User("youngdong","zeroistfilm@naver.com");
         user.isVailid();
         Long saveID = userService.join(user);
 
@@ -220,9 +208,7 @@ class UserServiceTest {
             //given
             User[] userlist = new User[100];
             for (int i = 0; i < 100; i++) {
-                User tmp = new User();
-                tmp.setName(String.valueOf(i));
-                tmp.setEmail("zeroistfilm@naver.com");
+                User tmp = new User(String.valueOf(i),"zeroistfilm@naver.com" );
                 tmp.isVailid();
                 userlist[i] = tmp;
                 Long saveID = userService.join(tmp);

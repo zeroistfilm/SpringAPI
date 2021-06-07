@@ -19,11 +19,17 @@ public class User {
     @Column(name = "UID")
     private Long uid;
 
+    @Column(name = "Name")
+    private String name;
+
     @Column(name = "Email")
     private String email;
 
-    @Column(name = "Name")
-    private String name;
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 
     public Long getUid() {
         return uid;

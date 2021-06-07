@@ -1,6 +1,9 @@
 package com.youngdong.woowahan.domain;
 
 
+import com.google.gson.JsonObject;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 //    EID     int          not null auto_increment primary key,
@@ -8,17 +11,18 @@ import javax.persistence.*;
 //    User_UID     int ,
 //    FOREIGN KEY (User_UID) REFERENCES User (UID),
 //
-//    Book_BID     int,
+//    Book_BID     int
 //    FOREIGN KEY (Book_BID) REFERENCES Book (BID),
 //
 //    Page    int not null,
 //    Contents varchar(200) not null,
 @Entity
+@NoArgsConstructor
 public class Contents {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EID")
-    private Long eid;
+    @Column(name = "CID")
+    private Long cid;
 
     @Column(name = "User_UID")
     private Long uid;
@@ -33,12 +37,54 @@ public class Contents {
     private String contents;
 
 
-    public Long getEid() {
-        return eid;
+    public Contents(Long uid, Long bid, Integer page, String contents) {
+        this.uid = uid;
+        this.bid = bid;
+        this.page = page;
+        this.contents = contents;
     }
 
-    public void setEid(Long eid) {
-        this.eid = eid;
+    public Contents(int i, int i1, int page) {
+    }
+
+    public void isVaild(){
+
+        StringBuilder errorMessage = new StringBuilder();
+
+        if (this.uid==null){
+            errorMessage.append("Uid ");
+        }
+        if (this.bid==null){
+            errorMessage.append("Bid ");
+        }
+        if (this.page==null){
+            errorMessage.append("Page ");
+        }
+        if (this.contents.isEmpty()){
+            errorMessage.append("Contents ");
+        }
+
+        if (errorMessage.length()>0) {
+
+            errorMessage.append("정보가 없습니다");
+            throw new IllegalStateException(String.valueOf(errorMessage).strip());
+        }
+    }
+
+    public String toJson() {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("uid", this.uid);
+        obj.addProperty("bid", this.bid);
+        obj.addProperty("page", this.page);
+        obj.addProperty("contents", this.contents);
+        return String.valueOf(obj);
+    }
+    public Long getCid() {
+        return cid;
+    }
+
+    public void setCid(Long cid) {
+        this.cid = cid;
     }
 
     public Long getUid() {

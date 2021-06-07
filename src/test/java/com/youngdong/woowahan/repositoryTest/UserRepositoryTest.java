@@ -20,9 +20,7 @@ public class UserRepositoryTest {
         String name = "youngdongkim";
 
         //when
-        User user = new User();
-        user.setName(name);
-        user.setEmail(email);
+        User user = new User(name, email);
 
         //then
         Assertions.assertThat(user.getEmail()).isEqualTo(email);
@@ -38,9 +36,7 @@ public class UserRepositoryTest {
         String name = "";
 
         //when
-        User user = new User();
-        user.setName(name);
-        user.setEmail(email);
+        User user = new User(name, email);
         //then
         try{
             user.isVailid();
@@ -58,9 +54,7 @@ public class UserRepositoryTest {
         String name = "";
 
         //when
-        User user = new User();
-        user.setName(name);
-        user.setEmail(email);
+        User user = new User(name, email);
         //then
         try{
             user.isVailid();
@@ -114,9 +108,7 @@ public class UserRepositoryTest {
             String name = "youngdongkim";
 
             //when
-            User user = new User();
-            user.setName(name);
-            user.setEmail(email);
+            User user = new User(name, email);
 
             //then
             boolean result = user.isVailidEmail(user.getEmail());
@@ -169,9 +161,7 @@ public class UserRepositoryTest {
             String name = "youngdongkim";
 
             //when
-            User user = new User();
-            user.setName(name);
-            user.setEmail(email);
+            User user = new User(name, email);
 
             //then
             try {
@@ -207,9 +197,7 @@ public class UserRepositoryTest {
             String name = "youngdongkim";
 
             //when
-            User user = new User();
-            user.setName(name);
-            user.setEmail(email);
+            User user = new User(name, email);
 
             //then
             boolean result = user.isVailidEmail(user.getEmail());

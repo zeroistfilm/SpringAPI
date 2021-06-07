@@ -49,7 +49,7 @@ public class Book {
         this.publisher = publisher.strip();
     }
 
-    public void isvailid() {
+    public void isVailid() {
 
         if (this.title.isEmpty() && this.author.isEmpty() && this.publisher.isEmpty()){
             throw new IllegalStateException("책 정보가 없습니다");

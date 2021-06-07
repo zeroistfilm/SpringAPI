@@ -54,7 +54,7 @@ class BookServiceTest {
     //Create
 
     @Test
-    @DisplayName("책 정보 공백 제거")
+    @DisplayName("func 책 정보 공백 제거")
     public void stripbook() {
         String[] invailidTestCase = {"  title", "  author", "publisher   "};
 
@@ -67,14 +67,14 @@ class BookServiceTest {
 
 
     @Test
-    @DisplayName("책 정보")
+    @DisplayName("func 책 정보 없음")
     public void isbookvaild() {
         String[] invailidTestCase = {"    ", "     ", "      "};
 
         Book book = new Book(invailidTestCase[0], invailidTestCase[1], invailidTestCase[2]);
 
         try {
-            book.isvailid();
+            book.isVailid();
         } catch (Exception e) {
             Assertions.assertThat(e.getMessage()).isEqualTo("책 정보가 없습니다");
         }
@@ -219,7 +219,7 @@ class BookServiceTest {
             Book[] booklist = new Book[100];
             for (int i = 0; i < 100; i++) {
                 Book tmp = new Book(String.valueOf(i),String.valueOf(i),String.valueOf(i));
-                tmp.isvailid();
+                tmp.isVailid();
                 booklist[i] = tmp;
                 Long saveID = bookService.join(tmp);
             }
