@@ -28,6 +28,9 @@ public class Book {
     @Column(name = "Publisher")
     private String publisher;
 
+
+
+
     public Long getBid() {
         return bid;
     }

@@ -54,7 +54,7 @@ public class BookAPIController {
     public Book readBook(@RequestParam("id") Long id) {
         Optional<Book> book = this.bookService.findById(id);
         if (book.isEmpty()) {
-            log.info("Fail Read User");
+            log.info("Fail Read Book");
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "정보없음");
         }
         log.info("Success Read Book");
@@ -66,7 +66,7 @@ public class BookAPIController {
     public List<Book> readBookAll() {
         List<Book> books = this.bookService.findAll();
         if (books.isEmpty()) {
-            log.info("Fail Read User");
+            log.info("Fail Read Book");
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "정보없음");
         }
         log.info("Success Read Book");
@@ -93,7 +93,7 @@ public class BookAPIController {
     //-----------Update--------
     @PutMapping("/book")
     @ResponseStatus(value = HttpStatus.CREATED) //201
-    public void editUserInfo(@RequestParam("id") Long id, @RequestBody Book book) {
+    public void editBookInfo(@RequestParam("id") Long id, @RequestBody Book book) {
         book.isVailid();
         Optional<Book> findbook = this.bookService.findById(id);
         findbook.ifPresentOrElse(
