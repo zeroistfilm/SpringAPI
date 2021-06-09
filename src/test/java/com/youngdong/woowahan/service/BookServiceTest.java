@@ -255,10 +255,13 @@ class BookServiceTest {
     @DisplayName("HTTP 책수정")
     public void Updatebook() throws Exception{
 
-        long requestId = 1;
+
         String newTitle = "newtitle2";
         String newAuthor = "newauthor2";
         String newPublisher = "newpublisher2";
+
+        Book book = new Book("title", "author", "pulbisher");
+        Long savebid = bookService.join(book);
 
         JsonObject obj = new JsonObject();
         obj.addProperty("title", newTitle);
@@ -268,7 +271,7 @@ class BookServiceTest {
 
         //then
         MvcResult result = mockMvc.perform(put("/book")
-                .param("id", String.valueOf(requestId))
+                .param("id", String.valueOf(savebid))
                 .content(obj.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8"))
@@ -277,11 +280,11 @@ class BookServiceTest {
                 .andReturn();
 
         System.out.println(result);
-        Book book = this.bookService.findById(requestId).get();
+        Book book2 = this.bookService.findById(savebid).get();
 
-        Assertions.assertThat(book.getTitle()).isEqualTo(newTitle);
-        Assertions.assertThat(book.getAuthor()).isEqualTo(newAuthor);
-        Assertions.assertThat(book.getPublisher()).isEqualTo(newPublisher);
+        Assertions.assertThat(book2.getTitle()).isEqualTo(newTitle);
+        Assertions.assertThat(book2.getAuthor()).isEqualTo(newAuthor);
+        Assertions.assertThat(book2.getPublisher()).isEqualTo(newPublisher);
 
     }
 

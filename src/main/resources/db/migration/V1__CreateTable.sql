@@ -4,8 +4,8 @@ create table user
     Email varchar(100) not null,
     Name  varchar(40) not null,
 
-    CreatedAt timestamp not null default current_timestamp,
-    UpdatedAt timestamp not null default current_timestamp on update current_timestamp
+    created_date timestamp not null default current_timestamp,
+    updated_date timestamp not null default current_timestamp on update current_timestamp
 );
 
 create table book
@@ -15,8 +15,8 @@ create table book
     Author    varchar(40)  not null,
     Publisher varchar(40)  not null,
 
-    created_date timestamp default current_timestamp,
-    updated_date timestamp default current_timestamp
+    created_date timestamp not null default current_timestamp,
+    updated_date timestamp not null default current_timestamp on update current_timestamp
 );
 
 create table contents
@@ -32,7 +32,6 @@ create table contents
     Page    int not null,
     Contents varchar(255) not null,
 
-    CreatedAt timestamp not null default current_timestamp,
-
-    UpdatedAt timestamp not null default current_timestamp on update current_timestamp
+    created_date timestamp not null default current_timestamp,
+    updated_date timestamp not null default current_timestamp on update current_timestamp
 );

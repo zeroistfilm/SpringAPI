@@ -102,6 +102,7 @@ public class BookAPIController {
                     selectbook.setTitle(book.getTitle());
                     selectbook.setAuthor(book.getAuthor());
                     selectbook.setPublisher(book.getPublisher());
+
                     bookService.join(selectbook);
                 },
                 () -> {
