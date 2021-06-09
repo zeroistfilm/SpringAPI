@@ -81,12 +81,14 @@ public class BookAPIController {
         Page<Book> allpages = this.bookService.findAll(sortedById);
 
         if (requestpage > allpages.getTotalPages()) {
+            log.info("Out of page");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "페이지 범위를 초과하는 요청입니다 MaxPage : " + allpages.getTotalPages(), new IndexOutOfBoundsException());
         }
         if (allpages.isEmpty()) {
-            log.info("Fail Read All books");
+            log.info("data is empty");
+        } else {
+            log.info("Success Read All books");
         }
-        log.info("Success Read All books");
         return allpages;
     }
 
@@ -102,10 +104,11 @@ public class BookAPIController {
                     selectbook.setTitle(book.getTitle());
                     selectbook.setAuthor(book.getAuthor());
                     selectbook.setPublisher(book.getPublisher());
-
                     bookService.join(selectbook);
+                    log.info("Success to update with new data");
                 },
                 () -> {
+                    log.info("Fail to update");
                     throw new ResponseStatusException(HttpStatus.NO_CONTENT, "요청한 Book ID가 데이터 베이스에 존재하지 않습니다",
                             new IllegalAccessError());
                 });

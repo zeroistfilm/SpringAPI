@@ -50,9 +50,10 @@ public class UserAPIController {
     public List getAllUsers() {
         List<User> allUsers = this.userService.findAll();
         if (allUsers.isEmpty()) {
-            log.info("Fail Read All Users");
+            log.info("Fail read users");
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "정보없음");
         }
-        log.info("Success Read All Users");
+        log.info("Success read users");
         return allUsers;
     }
 
@@ -63,12 +64,14 @@ public class UserAPIController {
         Page<User> allpages = this.userService.findAll(sortedById);
 
         if (requestpage > allpages.getTotalPages()) {
+            log.info("Out of page");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "페이지 범위를 초과하는 요청입니다 MaxPage : " + allpages.getTotalPages(), new IndexOutOfBoundsException());
         }
         if (allpages.isEmpty()) {
-            log.info("Fail Read All Users");
+            log.info("data is empty");
+        } else {
+            log.info("Success read all users");
         }
-        log.info("Success Read All Users");
         return allpages;
     }
 
@@ -95,15 +98,13 @@ public class UserAPIController {
                     selectUser.setName(user.getName());
                     selectUser.setEmail(user.getEmail());
                     userService.join(selectUser);
+                    log.info("Success to update with new data");
                 },
                 () -> {
+                    log.info("Fail to update");
                     throw new ResponseStatusException(HttpStatus.NO_CONTENT, "요청한 User ID가 데이터 베이스에 존재하지 않습니다",
                             new IllegalAccessError());
-//                    IllegalStateException("can't find user in database");
                 });
-//        Optional<User> updatedUser = this.userService.findOne(id);
-//        log.info("Success Update User");
-//        return updatedUser.orElse(null);
     }
 
 }

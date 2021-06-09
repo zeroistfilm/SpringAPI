@@ -24,7 +24,6 @@ public class SpringConfig {
         this.contentsRepository = contentsRepository;
     }
 
-
     @Bean
     public BookService bookService() {
         return new BookService(bookRepository);
