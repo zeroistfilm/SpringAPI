@@ -163,6 +163,7 @@ class BookServiceTest {
     //Read
     @Test
     @DisplayName("HTTP 책조회 // 정상")
+    @Commit
     public void Readbook() throws Exception{
         //given
         String title = "title";
@@ -181,7 +182,7 @@ class BookServiceTest {
                 .andExpect(status().isOk())
                 .andReturn();
         String content = result.getResponse().getContentAsString();
-
+        System.out.println(content);
         JsonParser parser = new JsonParser();
         JsonElement element = parser.parse(content);
         String gettitle  = element.getAsJsonObject().get("title").getAsString();

@@ -3,10 +3,14 @@ package com.youngdong.woowahan.domain;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Locale;
 
 //    UID   int          not null auto_increment primary key,
@@ -27,6 +31,12 @@ public class User {
     @Column(name = "Email")
     private String email;
 
+//
+//    @CreationTimestamp
+//    private Timestamp CreatedAt;
+
+//    @Column(name = "UpdatedAt")
+//    private Timestamp UpdatedAt;
 
     public User(String name, String email) {
         this.name = name;

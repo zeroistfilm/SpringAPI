@@ -58,6 +58,7 @@ public class BookAPIController {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "정보없음");
         }
         log.info("Success Read Book");
+        log.info(this.bookService.findById(id).get().toJson());
         return book.orElse(null);
     }
 

@@ -15,8 +15,8 @@ create table book
     Author    varchar(40)  not null,
     Publisher varchar(40)  not null,
 
-    CreatedAt timestamp not null default current_timestamp,
-    UpdatedAt timestamp not null default current_timestamp on update current_timestamp
+    created_date timestamp default current_timestamp,
+    updated_date timestamp default current_timestamp
 );
 
 create table contents

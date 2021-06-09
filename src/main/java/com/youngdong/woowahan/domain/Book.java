@@ -1,10 +1,16 @@
 package com.youngdong.woowahan.domain;
 
 import com.google.gson.JsonObject;
+import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 
 //    BID       int          not null auto_increment primary key,
 //    Title     varchar(100) not null,
@@ -12,6 +18,8 @@ import javax.persistence.*;
 //    Publisher varchar(40)  not null,
 @Entity
 @Slf4j
+@Getter
+@Setter
 @NoArgsConstructor
 public class Book {
     @Id
@@ -28,8 +36,27 @@ public class Book {
     @Column(name = "Publisher")
     private String publisher;
 
+    @Column(name = "created_date")
+    private Date createdDate;
 
+    @Column(name = "updated_date")
+    private Date updatedDate;
 
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
 
     public Long getBid() {
         return bid;
@@ -97,6 +124,8 @@ public class Book {
         obj.addProperty("title", this.title);
         obj.addProperty("author", this.author);
         obj.addProperty("publisher", this.publisher);
+        obj.addProperty("createdAt", String.valueOf(this.createdDate));
+        obj.addProperty("updateAt", String.valueOf(this.updatedDate));
         return String.valueOf(obj);
     }
 }
