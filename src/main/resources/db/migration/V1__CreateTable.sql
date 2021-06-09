@@ -1,3 +1,5 @@
+set time_zone = 'Asia/Seoul';
+
 create table user
 (
     UID   bigint not null auto_increment primary key,

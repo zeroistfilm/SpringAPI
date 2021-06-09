@@ -46,6 +46,18 @@ public class Book {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
     public Date getCreatedDate() {
         return createdDate;
     }
@@ -60,22 +72,6 @@ public class Book {
 
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
-    }
-
-    public Long getBid() {
-        return bid;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
     }
 
     public Book(String title, String author, String publisher) {

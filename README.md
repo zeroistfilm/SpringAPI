@@ -20,36 +20,49 @@ cerpt -e MYSQL_USER=sa -e MYSQL_PASSWORD=password -d -p 3306:3306 mysql:5.7
 # 2. API 호출<br>
 - User
   - Create  
-      - POST http://localhost:8080/user/new <br>
+      - 유저 등록<br>
+        POST http://localhost:8080/user/new <br>
         JSON {name, email}
   - Read  
-      - GET http://localhost:8080/user/all
-      - GET http://localhost:8080/user/?id={UID}
-      - GET http://localhost:8080/user/allPages?pagesize={pagesize}}&requestpage={requestpage}
+      - 특정 유저 조회<br>
+      GET http://localhost:8080/user/?id={UID}
+      - 모든 유저 조회<br>
+        GET http://localhost:8080/user/all
+      - 모든 유저 조회(페이징)<br>
+        GET http://localhost:8080/user/allPages?pagesize={pagesize}}&requestpage={requestpage}
   - Update 
-      - PUT http://localhost:8080/user/?id={UID} <br>
+      - 유저 수정<br>
+        PUT http://localhost:8080/user/?id={UID} <br>
         JSON {uid, name, email}
 - Book
   - Create
-    - POST http://localhost:8080/book/new <br>
+    - 책 등록<br>
+      POST http://localhost:8080/book/new <br>
       JSON {title,author,publisher}
   - Read
-    - GET http://localhost:8080/book/all
-    - GET http://localhost:8080/book/?id={UID}
-    - GET http://localhost:8080/book/allPages?pagesize={pagesize}}&requestpage={requestpage}
+    - 특정 책 조회<br>
+      GET http://localhost:8080/book/?id={UID}
+    - 모든 책 조회<br>
+      GET http://localhost:8080/book/all
+    - 모든 책 조회(페이징)<br>
+      GET http://localhost:8080/book/allPages?pagesize={pagesize}}&requestpage={requestpage}
   - Update
-    - PUT http://localhost:8080/book/?id={UID} <br>
+    - 책 정보 수정<br>
+      PUT http://localhost:8080/book/?id={UID} <br>
       JSON {bid,title,author,publisher}
 - Contents
   - Create
-    - POST http://localhost:8080/contents/new <br>
+    - 발췌문 등록 <br>
+      POST http://localhost:8080/contents/new <br>
       JSON {uid,bid,page,contents}
   - Read
-    - GET http://localhost:8080/contents/all
-    - GET http://localhost:8080/contents/?id={UID}
-    - GET http://localhost:8080/contents/allPages?pagesize={pagesize}}&requestpage={requestpage}
+    - 특정 발췌문 조회<br>GET http://localhost:8080/contents/?id={UID}
+    - 모든 발췌문 조회
+      <br>GET http://localhost:8080/contents/all
+    - 모든 발췌문 조회(페이징)<br>GET http://localhost:8080/contents/allPages?pagesize={pagesize}}&requestpage={requestpage}
   - Update
-    - PUT http://localhost:8080/contents/?id={UID} <br>
+    - 발췌문 수정<br>
+      PUT http://localhost:8080/contents/?id={UID} <br>
       JSON {cid,uid,bid,page,contents}
 
 

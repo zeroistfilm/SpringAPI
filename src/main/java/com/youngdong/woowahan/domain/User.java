@@ -54,6 +54,14 @@ public class User {
         this.email = email;
     }
 
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
     public Long getUid() {
         return uid;
     }
