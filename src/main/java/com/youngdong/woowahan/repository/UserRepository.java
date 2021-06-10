@@ -1,6 +1,6 @@
 package com.youngdong.woowahan.repository;
 
-import com.youngdong.woowahan.domain.User;
+import com.youngdong.woowahan.Entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

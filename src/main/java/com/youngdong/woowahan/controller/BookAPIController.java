@@ -1,8 +1,6 @@
 package com.youngdong.woowahan.controller;
-
-
 import com.google.gson.JsonObject;
-import com.youngdong.woowahan.domain.Book;
+import com.youngdong.woowahan.Entity.Book;
 import com.youngdong.woowahan.service.BookService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

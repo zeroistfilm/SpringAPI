@@ -1,7 +1,7 @@
 package com.youngdong.woowahan.service;
 
 import com.google.gson.JsonObject;
-import com.youngdong.woowahan.domain.User;
+import com.youngdong.woowahan.Entity.User;
 import com.youngdong.woowahan.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

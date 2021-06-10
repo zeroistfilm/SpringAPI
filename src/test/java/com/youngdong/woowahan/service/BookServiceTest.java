@@ -3,12 +3,8 @@ package com.youngdong.woowahan.service;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.sun.source.tree.AssertTree;
-import com.youngdong.woowahan.domain.Book;
-import com.youngdong.woowahan.domain.User;
+import com.youngdong.woowahan.Entity.Book;
 import com.youngdong.woowahan.repository.BookRepository;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,12 +19,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import javax.transaction.Transactional;
 
-import java.util.Optional;
 import java.util.Random;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;

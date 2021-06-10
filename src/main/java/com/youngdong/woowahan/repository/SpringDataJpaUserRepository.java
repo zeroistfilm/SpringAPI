@@ -1,10 +1,8 @@
 package com.youngdong.woowahan.repository;
 
-import com.youngdong.woowahan.domain.User;
-import org.springframework.data.domain.Page;
+import com.youngdong.woowahan.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface SpringDataJpaUserRepository extends JpaRepository<User,Long>, UserRepository{

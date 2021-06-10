@@ -1,4 +1,4 @@
-package com.youngdong.woowahan.domain;
+package com.youngdong.woowahan.Entity;
 
 
 import com.google.gson.JsonObject;

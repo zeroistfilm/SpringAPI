@@ -1,7 +1,6 @@
-package com.youngdong.woowahan.domain;
+package com.youngdong.woowahan.Entity;
 
 import com.google.gson.JsonObject;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +9,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 //    BID       int          not null auto_increment primary key,

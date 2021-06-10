@@ -1,8 +1,17 @@
 # 1. 프로젝트 실행 방법
 - MySQL서버를 생성하기 위해 다음 도커 명령어를 터미널에 입력합니다.
 ```
-docker run --name kyd-woowahan -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=BookEx
-cerpt -e MYSQL_USER=sa -e MYSQL_PASSWORD=password -d -p 3306:3306 mysql:5.7
+docker run --name mysql-woowahan 
+-e MYSQL_ROOT_PASSWORD=password 
+-e MYSQL_DATABASE=BookContents 
+-e MYSQL_USER=sa
+-e MYSQL_PASSWORD=password 
+-e TZ=Asia/Seoul 
+-d 
+-p 3306:3306 
+mysql:5.7 
+--character-set-server=utf8mb4 
+--collation-server=utf8mb4_unicode_ci
 ```
 
 - IntelliJ<br>  

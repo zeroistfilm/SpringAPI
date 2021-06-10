@@ -1,7 +1,7 @@
 package com.youngdong.woowahan.controller;
 
 import com.google.gson.JsonObject;
-import com.youngdong.woowahan.domain.Contents;
+import com.youngdong.woowahan.Entity.Contents;
 import com.youngdong.woowahan.service.ContentsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

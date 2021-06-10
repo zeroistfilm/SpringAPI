@@ -1,12 +1,9 @@
 package com.youngdong.woowahan.repositoryTest;
 
-import com.youngdong.woowahan.domain.User;
-import com.youngdong.woowahan.repository.UserRepository;
+import com.youngdong.woowahan.Entity.User;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
