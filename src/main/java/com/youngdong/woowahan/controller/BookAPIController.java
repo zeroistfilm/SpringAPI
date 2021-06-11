@@ -1,116 +1,73 @@
 package com.youngdong.woowahan.controller;
-import com.google.gson.JsonObject;
+
+import com.youngdong.woowahan.CRUDInterface.APIInterface;
+import com.youngdong.woowahan.DTO.BookDTO;
 import com.youngdong.woowahan.Entity.Book;
-import com.youngdong.woowahan.service.BookService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
-
 
 @RestController
 @Slf4j
 public class BookAPIController {
+    @Autowired
+    private APIInterface<BookDTO, Book> api;
 
-    private BookService bookService;
-
-    public BookAPIController(BookService bookService) {
-        this.bookService = bookService;
-    }
-
-    //-----------Create--------
     @PostMapping("/book/new")
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public String saveBook(@RequestBody Book book) {
+    @ResponseStatus(value = HttpStatus.CREATED) //201
+    public String createBook(@RequestBody BookDTO BookDTO) {
         try {
-            book.isVailid();
-            Long resultId = this.bookService.join(book);
-            JsonObject obj = new JsonObject();
-            obj.addProperty("bid", resultId);
-            obj.addProperty("title", book.getTitle());
-            obj.addProperty("author", book.getAuthor());
-            obj.addProperty("publisher", book.getPublisher());
-            log.info("Success Create Book");
-            return obj.toString();
-
-        } catch (Exception e) {
-            log.info("Fail Create Book");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage()); //400
+            return api.create(BookDTO).toJson();
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
     }
 
-    //-----------Read----------
-    @GetMapping("/book")
-    @ResponseStatus(value = HttpStatus.OK) //200
-    public Book readBook(@RequestParam("id") Long id) {
-        Optional<Book> book = this.bookService.findById(id);
-        if (book.isEmpty()) {
-            log.info("Fail Read Book");
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "정보없음");
+    @GetMapping("/book/")
+    public Book getBook(@RequestParam("id") Long id) {
+        try {
+            return api.readOne(id);
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
         }
-        log.info("Success Read Book");
-        log.info(this.bookService.findById(id).get().toJson());
-        return book.orElse(null);
+
     }
 
     @GetMapping("/book/all")
-    @ResponseStatus(value = HttpStatus.OK) //200
-    public List<Book> readBookAll() {
-        List<Book> books = this.bookService.findAll();
-        if (books.isEmpty()) {
-            log.info("Fail Read Book");
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "정보없음");
+    public List getAllBook() {
+        try {
+            return api.readAll();
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
         }
-        log.info("Success Read Book");
-        return books;
     }
 
     @GetMapping("/book/allPages")
     @ResponseStatus(value = HttpStatus.OK) //200
-    public Page readBookAllpages(@RequestParam("pagesize") int pagesize, @RequestParam("requestpage") int requestpage) {
-        Pageable sortedById = PageRequest.of(requestpage, pagesize, Sort.by("bid"));
-        Page<Book> allpages = this.bookService.findAll(sortedById);
+    public Page getAllBookPage(@RequestParam("pagesize") int pagesize, @RequestParam("requestpage") int requestpage) {
+        try {
+            return api.readPage(requestpage, pagesize);
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
 
-        if (requestpage > allpages.getTotalPages()) {
-            log.info("Out of page");
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "페이지 범위를 초과하는 요청입니다 MaxPage : " + allpages.getTotalPages(), new IndexOutOfBoundsException());
-        }
-        if (allpages.isEmpty()) {
-            log.info("data is empty");
-        } else {
-            log.info("Success Read All books");
-        }
-        return allpages;
     }
 
-
-    //-----------Update--------
     @PutMapping("/book")
     @ResponseStatus(value = HttpStatus.CREATED) //201
-    public void editBookInfo(@RequestParam("id") Long id, @RequestBody Book book) {
-        book.isVailid();
-        Optional<Book> findbook = this.bookService.findById(id);
-        findbook.ifPresentOrElse(
-                selectbook -> {
-                    selectbook.setTitle(book.getTitle());
-                    selectbook.setAuthor(book.getAuthor());
-                    selectbook.setPublisher(book.getPublisher());
-                    bookService.join(selectbook);
-                    log.info("Success to update with new data");
-                },
-                () -> {
-                    log.info("Fail to update");
-                    throw new ResponseStatusException(HttpStatus.NO_CONTENT, "요청한 Book ID가 데이터 베이스에 존재하지 않습니다",
-                            new IllegalAccessError());
-                });
-    }
+    public void editBookInfo(@RequestParam("id") Long id, @RequestBody BookDTO BookDTO) {
 
+        try {
+            api.update(id, BookDTO);
+        }catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
+        }
+
+    }
 
 }
