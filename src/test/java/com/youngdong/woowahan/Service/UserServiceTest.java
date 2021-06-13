@@ -127,16 +127,14 @@ class UserServiceTest {
         //given
         UserDTO userDTO = new UserDTO("old", "old@old.old");
         String newName = "new";
-        String newEmail = "new@new.new";
 
         //when
         User saveduser = userService.create(userDTO);
-        userService.update(saveduser.getUid(), new UserDTO(newName, newEmail));
+        userService.update(saveduser.getUid(), new UserDTO(newName, userDTO.getEmail()));
         User finduser = userService.readOne(saveduser.getUid());
 
         //then
         Assertions.assertThat(finduser.getName()).isEqualTo(newName);
-        Assertions.assertThat(finduser.getEmail()).isEqualTo(newEmail);
     }
 
     @Test

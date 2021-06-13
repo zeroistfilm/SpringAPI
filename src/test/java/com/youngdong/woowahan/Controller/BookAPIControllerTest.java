@@ -168,7 +168,8 @@ class BookAPIControllerTest {
     @Test
     @DisplayName("HTTP 모든 책조회")
     public void Readbookall() throws Exception{
-
+        BookDTO book = new BookDTO("title", "author", "publisher");
+        bookService.create(book);
         //then
         MvcResult result = mockMvc.perform(get("/book/all")
                 .characterEncoding("UTF-8"))

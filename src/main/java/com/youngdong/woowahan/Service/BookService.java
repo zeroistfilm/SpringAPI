@@ -1,9 +1,9 @@
 package com.youngdong.woowahan.Service;
 
-import com.youngdong.woowahan.ServiceInterface.ServiceInterface;
 import com.youngdong.woowahan.DTO.BookDTO;
 import com.youngdong.woowahan.Entity.Book;
 import com.youngdong.woowahan.RepositoryInterface.RepositoryInterface;
+import com.youngdong.woowahan.ServiceInterface.ServiceInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,12 +25,12 @@ public class BookService implements ServiceInterface<BookDTO, Book> {
 
     @Override
     public Book create(BookDTO bookDTO) {
-        try{
-        isVaild(bookDTO);
-        Book book = new Book(bookDTO.getTitle(),bookDTO.getAuthor(), bookDTO.getPublisher());
-        log.info("Success create book");
-        return bookRepository.save(book);
-        }catch (Exception e){
+        try {
+            isVaild(bookDTO);
+            Book book = new Book(bookDTO.getTitle(), bookDTO.getAuthor(), bookDTO.getPublisher());
+            log.info("Success create book" + book);
+            return bookRepository.save(book);
+        } catch (Exception e) {
             throw new IllegalStateException(e.getMessage());
         }
     }
@@ -39,7 +39,7 @@ public class BookService implements ServiceInterface<BookDTO, Book> {
     public Book readOne(long id) {
         Optional<Book> bookbyId = bookRepository.findById(id);
         if (bookbyId.isPresent()) {
-            log.info("Success Read book");
+            log.info("Success Read book"+bookbyId.get());
             return bookbyId.orElse(null);
         } else {
             log.info("Fail Read book");
@@ -80,11 +80,14 @@ public class BookService implements ServiceInterface<BookDTO, Book> {
     @Override
     public void update(long id, BookDTO bookDTO) {
         Optional<Book> bookById = bookRepository.findById(id);
+        String newTitle= (bookDTO.getTitle() != null) ? bookDTO.getTitle() : bookById.get().getTitle();
+        String newAuthor= (bookDTO.getAuthor() != null) ? bookDTO.getAuthor() : bookById.get().getAuthor();
+        String newPublisher= (bookDTO.getPublisher() != null) ? bookDTO.getPublisher() : bookById.get().getPublisher();
         bookById.ifPresentOrElse(
                 selectBook -> {
-                    selectBook.setTitle(bookDTO.getTitle());
-                    selectBook.setAuthor(bookDTO.getAuthor());
-                    selectBook.setPublisher(bookDTO.getPublisher());
+                    selectBook.setTitle(newTitle);
+                    selectBook.setAuthor(newAuthor);
+                    selectBook.setPublisher(newPublisher);
                     bookRepository.save(selectBook);
                     log.info("Success to update with new data");
                 },

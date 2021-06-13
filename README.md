@@ -52,7 +52,18 @@
   ```shell
   $ java -jar ./build/libs/woowahan-0.0.1-SNAPSHOT.jar
   ```
-# 2. API 호출<br>
+
+# 2. 요구사항
+- 사용자의 이름을 변경할 수 있는 API를 제공합니다.
+- 책의 제목과 저자, 출판사를 변경할 수 있는 API를 제공합니다.
+- 발췌한 페이지 번호와 내용을 변경할 수 있는 API를
+  ### 구현
+  - 사용자의 이름만 변경할 수 있습니다.
+  - 제목, 저자, 출판사를 변경할 수 있습니다. 3가지중 1가지만 업데이트 하더라도 1가지만 변경되고 나머지는 기존 데이터가 유지됩니다.
+  - 페이지 번호화 내용을 변경할 수 있습니다. 2가지 중 한가지만 수정해도 됩니다.
+
+
+# 3. API 호출<br>
 - User
   - Create  
       - 유저 등록<br>
@@ -105,7 +116,7 @@
       PUT http://localhost:8080/contents/?id={UID} <br>
       JSON {cid,uid,bid,page,contents}
 
-# 2.1 Response Status<br>
+## 3.1 Response Status<br>
 
 | |성공|실패|
 |:---:|:---:|:---:|
@@ -116,20 +127,12 @@
 |Update|201|204|
 
 
-# 3. 테스트<br>
+# 4. 테스트<br>
 - JPA : Service Layer에서 이루어지는 메서드를 테스트합니다.
 - HTTP : http요청을 통해 호출되는 컨트롤러를 테스트합니다. 
 <br>
 <br>
 <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F8def6b55-848a-425e-adf0-e7f54db0cc98%2FUntitled.png?table=block&id=4668ff2d-ebbd-454c-9f15-b9dc0db77bfe&width=2980&userId=14ad980b-ed44-4307-8ea9-6d98b0f9e4fd&cache=v2">
-
-# 4. 기술스택<br>
-  - JAVA11
-  - Spring 2.4.6
-  - FlyWay
-  - Spring Data JPA
-  - Mysql 5.7
-  - Docker
 
 # 5. DB schema
 <br>
@@ -137,18 +140,18 @@
 <br>
 
 - *Table간의 N:M관계* 
-- User Table
-  - 유저는 여러 발췌문을 작성할 수 있습니다. (*many*)
-  - 유저는 등록되어 있지만 발췌문을 작성하지 않을 수 있습니다. (*Optional*)
-  - 따라서 유저 테이블은 발췌문 테이블과 `1:N Optional` 관계 입니다.
-- Book Table
-  - 책은 여러 발췌문에 소속될 수 있습니다. (*many*)
-  - 책은 발췌문에 소속되지 않을 수 있습니다. (*Optional*)
-  - 따라서 책 테이블은 발췌문 테이블과 `1:N Optional` 관계 입니다.
-- Contents Table
-  - 발췌문은 반드시 하나의 유저 정보를 포함해야 합니다. (*Mandatory*)
-  - 발췌문은 반드시 하나의 책 정보를 포함해야 합니다. (*Mandatory*)
-  - 유저와 책 테이블에 관계를 가진 발췌문 테이블은 `유저와 책 테이블의 각각 PK를 FK`로 가집니다.
+  - User Table
+    - 유저는 여러 발췌문을 작성할 수 있습니다. (*many*)
+    - 유저는 등록되어 있지만 발췌문을 작성하지 않을 수 있습니다. (*Optional*)
+    - 따라서 유저 테이블은 발췌문 테이블과 `1:N Optional` 관계 입니다.
+  - Book Table
+    - 책은 여러 발췌문에 소속될 수 있습니다. (*many*)
+    - 책은 발췌문에 소속되지 않을 수 있습니다. (*Optional*)
+    - 따라서 책 테이블은 발췌문 테이블과 `1:N Optional` 관계 입니다.
+  - Contents Table
+    - 발췌문은 반드시 하나의 유저 정보를 포함해야 합니다. (*Mandatory*)
+    - 발췌문은 반드시 하나의 책 정보를 포함해야 합니다. (*Mandatory*)
+    - 유저와 책 테이블에 관계를 가진 발췌문 테이블은 `유저와 책 테이블의 각각 PK를 FK`로 가집니다.
 - 테이블을 생성하기 위한 SQL  
   ```sql
   set time_zone = 'Asia/Seoul';
@@ -190,6 +193,12 @@
       created_date timestamp not null default current_timestamp,
       updated_date timestamp not null default current_timestamp on update current_timestamp
   );
+  ```
+  
+ - hibernate의 테이블 자동 생성 옵션을 off 합니다.
+  ```properties
+  #자동 테이블 생성 끄기
+  spring.jpa.hibernate.ddl-auto=none
   ```
 
 # 6. API structure <br>
@@ -287,3 +296,14 @@ User, Book, Contents 항목 모두 요구사항이 같기 때문에 공통의 �
   ```
 - Book DAO (main/Entity/Book 참조)
 - Contents DAO (main/Entity/Contents 참조)
+
+# 11.Logging
+- slf4j를 사용하여 Service 레이어에서 Info레벨로 CRU성공 여부와 실패 여부를 로깅합니다. 
+
+# 12. 기술스택<br>
+- JAVA11
+- Spring 2.4.6
+- FlyWay
+- Spring Data JPA
+- Mysql 5.7
+- Docker

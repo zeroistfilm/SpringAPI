@@ -63,7 +63,8 @@ public class UserAPIController {
     @PutMapping("/user")
     @ResponseStatus(value = HttpStatus.CREATED) //201
     public void editUserInfo(@RequestParam("id") Long id, @RequestBody UserDTO userDTO) {
-
+        System.out.println(userDTO.getName());
+        System.out.println(userDTO.getEmail());
         try {
             api.update(id, userDTO);
         }catch (IllegalStateException e) {

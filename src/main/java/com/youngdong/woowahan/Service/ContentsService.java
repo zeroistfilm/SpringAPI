@@ -71,14 +71,16 @@ public class ContentsService implements ServiceInterface<ContentsDTO, Contents> 
 
     @Override
     public void update(long id, ContentsDTO contentsDTO) {
-        isVaild(contentsDTO);
-        Optional<Contents> userbyId = contentsRepository.findById(id);
-        userbyId.ifPresentOrElse(
+
+        Optional<Contents> contentsbyId = contentsRepository.findById(id);
+
+        int newpage= (contentsDTO.getPage()!=null) ? contentsDTO.getPage() : contentsbyId.get().getPage();
+        String newcontents = (contentsDTO.getContents()!=null) ? contentsDTO.getContents() : contentsbyId.get().getContents();
+
+        contentsbyId.ifPresentOrElse(
                 selectContents -> {
-                    selectContents.setUid(contentsDTO.getUid());
-                    selectContents.setBid(contentsDTO.getBid());
-                    selectContents.setPage(contentsDTO.getPage());
-                    selectContents.setContents(contentsDTO.getContents());
+                    selectContents.setPage(newpage);
+                    selectContents.setContents(newcontents);
 
                     contentsRepository.save(selectContents);
                     log.info("Success to update with new data");

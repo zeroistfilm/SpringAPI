@@ -20,4 +20,5 @@ public class ContentsDTO {
         this.page = page;
         this.contents = contents;
     }
+
 }

@@ -165,7 +165,7 @@ class ContentsAPIControllerTest {
         Book savebook = bookService.create(book);
 
         ContentsDTO contents1 = new ContentsDTO(saveuser.getUid(), savebook.getBid(), page, contents);
-
+        contentsService.create(contents1);
         MvcResult result = mockMvc.perform(get("/contents/all")
                 .characterEncoding("UTF-8"))
                 .andDo(print())
@@ -269,8 +269,6 @@ class ContentsAPIControllerTest {
 
         // 저장된 데이터가 요청한 데이터와 같은지 확인
         Contents retContents = contentsService.readOne(savecontents.getCid());
-        Assertions.assertThat(Long.toString(retContents.getUid())).isEqualTo(Long.toString(newsaveuser.getUid()));
-        Assertions.assertThat(Long.toString(retContents.getBid())).isEqualTo(Long.toString(newsavebook.getBid()));
         Assertions.assertThat(String.valueOf(retContents.getPage())).isEqualTo(String.valueOf(newpage));
         Assertions.assertThat(retContents.getContents()).isEqualTo(newcontents);
 
