@@ -223,6 +223,12 @@ User, Book, Contents 항목 모두 요구사항이 같기 때문에 공통의 �
 
 - Service Class<br>
 각각의 서비스 클래스는 서비스 인터페이스를 상속받고, 인터페이스에 명시된 메서드를 오버라이드하여 구체적인 메서드를 정의합니다.
+  - create : DTO를 입력받아 Repository의 Save를 호출하고 응답으로 Entity를 반환합니다.
+  - readOne : ID를 입력받아 Repository의 findbyID를 호출하고 응답으로 Entity를 반환합니다.
+  - readAll : Repository의 findAll을 호출하고 응답으로 List<Entity>를 반환합니다.
+  - readPage :  Repository의 findAll(Pageable sortedById)를 호출하고 Page<Entity>를 반환합니다.
+  - update : ID와 DTO를 입력받아 Repository의 findbyID, Save를 순차적으로 호출합니다.
+  - isVaild : 클래스로 넘어오는 DTO객체의 유효성을 검증하며 유효성오류시 `IllegalStateException`을 throw합니다.
   - UserService에는 Email을 검증하는 로직이 추가가 되어있습니다. <br> (userService 단독으로 사용되기 때문에 인터페이스에는 정의하지 않았습니다.)
     
 # 9. DTO
