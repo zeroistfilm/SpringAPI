@@ -137,17 +137,18 @@
 
 - *Table간의 N:M관계* 
 - User Table
-  - 유저는 여러 발췌문을 작성할 수 있습니다.
-  - 유저는 등록되어 있지만 발췌문을 작성하지 않을 수 있습니다.
-  - 따라서 유저 테이블은 발췌문 테이블과 1:N 관계 입니다.
+  - 유저는 여러 발췌문을 작성할 수 있습니다. (*many*)
+  - 유저는 등록되어 있지만 발췌문을 작성하지 않을 수 있습니다. (*Optional*)
+  - 따라서 유저 테이블은 발췌문 테이블과 `1:N Optional` 관계 입니다.
 - Book Table
-  - 책은 여러 발췌문에 소속될 수 있습니다.
-  - 책은 발췌문에 소속되지 않을 수 있습니다.
-  - 따라서 책 테이블은 발췌문 테이블과 1:N 관계 입니다.
+  - 책은 여러 발췌문에 소속될 수 있습니다. (*many*)
+  - 책은 발췌문에 소속되지 않을 수 있습니다. (*Optional*)
+  - 따라서 책 테이블은 발췌문 테이블과 `1:N Optional` 관계 입니다.
 - Contents Table
-  - 발췌문은 반드시 하나의 유저 정보를 포함해야 합니다.
-  - 발췌문은 반드시 하나의 책 정보를 포함해야 합니다.
-  - 유저와 책 테이블에 관계를 가진 발췌문 테이블은 유저와 책 테이블의 각각 PK를 FK로 가집니다. 
+  - 발췌문은 반드시 하나의 유저 정보를 포함해야 합니다. (*Mandatory*)
+  - 발췌문은 반드시 하나의 책 정보를 포함해야 합니다. (*Mandatory*)
+  - 유저와 책 테이블에 관계를 가진 발췌문 테이블은 `유저와 책 테이블의 각각 PK를 FK`로 가집니다.
+  
 
 # 6. API structure <br>
 <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb60dc3d9-853e-4385-bdf1-6c88d999e22f%2FUntitled.png?table=block&id=d8c303cb-01b0-4937-a80a-f4f1873caf31&width=1450&userId=14ad980b-ed44-4307-8ea9-6d98b0f9e4fd&cache=v2">
@@ -157,7 +158,7 @@ User, Book, Contents 항목 모두 요구사항이 같기 때문에 공통의 �
 - Service Interface<br>
 ```java
 public interface ServiceInterface<DTO,Entity> {
-    Entity create(DTO dto);
+    Entity create(DTO dto); 
     Entity readOne(long id);
     List<Entity> readAll();
     Page readPage(int requestpage, int pagesize);
@@ -179,7 +180,7 @@ public interface RepositoryInterface<Entity> {
 # 8. 클래스 구현<br>
 
 - Service Class<br>
-각각의 클래스는 서비스 인터페이스를 상속받고, 인터페이스에 명시된 메서드를 오버라이드하여 구체적인 메서드를 정의합니다.
+각각의 서비스 클래스는 서비스 인터페이스를 상속받고, 인터페이스에 명시된 메서드를 오버라이드하여 구체적인 메서드를 정의합니다.
   - UserService에는 Email을 검증하는 로직이 추가가 되어있습니다. (userService 단독으로 사용되기 때문에 인터페이스에는 정의하지 않았습니다.)
     
 # 9. DTO
