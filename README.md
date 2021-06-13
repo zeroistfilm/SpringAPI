@@ -101,7 +101,7 @@ DB schema
 <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F723e1955-c12f-4575-9c39-03fa2a49f7c0%2FUntitled.png?table=block&id=362b4f8e-5783-48bc-b0c7-598d181934ce&width=2980&userId=14ad980b-ed44-4307-8ea9-6d98b0f9e4fd&cache=v2">
 
 # 6.인터페이스 설계 <br>
-User, Book, Contents 항목 모두 같은 요구사항이 같기 때문에 공통의 인터페이스를 둔다. <br>
+User, Book, Contents 항목 모두 요구사항이 같기 때문에 공통의 인터페이스를 둔다. <br>
 - Service Interface<br>
 
   
