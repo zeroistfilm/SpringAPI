@@ -22,7 +22,6 @@ class UserServiceTest {
 
         //when
         User saveuser = userService.create(userDTO);
-        System.out.println(saveuser.toJson());
         //then
         User finduser = userService.readOne(saveuser.getUid());
         Assertions.assertThat(saveuser.getUid()).isEqualTo(finduser.getUid());

@@ -46,15 +46,5 @@ public class Book {
         this.publisher = publisher.strip();
     }
 
-    public String toJson() {
-        JsonObject obj = new JsonObject();
-        obj.addProperty("bid", this.bid);
-        obj.addProperty("title", this.title);
-        obj.addProperty("author", this.author);
-        obj.addProperty("publisher", this.publisher);
-        obj.addProperty("createdAt", String.valueOf(this.createdDate));
-        obj.addProperty("updateAt", String.valueOf(this.updatedDate));
-        return String.valueOf(obj);
-    }
 }
 

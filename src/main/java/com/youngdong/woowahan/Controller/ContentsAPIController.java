@@ -20,9 +20,9 @@ public class ContentsAPIController {
 
     @PostMapping("/contents/new")
     @ResponseStatus(value = HttpStatus.CREATED) //201
-    public String createcontents(@RequestBody ContentsDTO contentsDTO) {
+    public Contents createcontents(@RequestBody ContentsDTO contentsDTO) {
         try {
-            return api.create(contentsDTO).toJson();
+            return api.create(contentsDTO);
         } catch (IllegalStateException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
@@ -63,13 +63,11 @@ public class ContentsAPIController {
     @PutMapping("/contents")
     @ResponseStatus(value = HttpStatus.CREATED) //201
     public void editcontentsInfo(@RequestParam("id") Long id, @RequestBody ContentsDTO contentsDTO) {
-
         try {
             api.update(id, contentsDTO);
         }catch (IllegalStateException e) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
         }
-
     }
 
 }

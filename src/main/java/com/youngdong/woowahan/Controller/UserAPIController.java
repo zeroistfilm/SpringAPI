@@ -20,9 +20,9 @@ public class UserAPIController {
 
     @PostMapping("/user/new")
     @ResponseStatus(value = HttpStatus.CREATED) //201
-    public String createuser(@RequestBody UserDTO userDTO) {
+    public User createuser(@RequestBody UserDTO userDTO) {
         try {
-            return api.create(userDTO).toJson();
+            return api.create(userDTO);
         } catch (IllegalStateException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }

@@ -51,16 +51,5 @@ public class Contents {
         this.contents = contents;
     }
 
-    public String toJson() {
-        JsonObject obj = new JsonObject();
-        obj.addProperty("cid", this.cid);
-        obj.addProperty("uid", this.uid);
-        obj.addProperty("bid", this.bid);
-        obj.addProperty("page", this.page);
-        obj.addProperty("contents", this.contents);
-        obj.addProperty("createdAt", String.valueOf(this.createdDate));
-        obj.addProperty("updateAt", String.valueOf(this.updatedDate));
-        return String.valueOf(obj);
-    }
 
 }

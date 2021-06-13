@@ -20,9 +20,9 @@ public class BookAPIController {
 
     @PostMapping("/book/new")
     @ResponseStatus(value = HttpStatus.CREATED) //201
-    public String createBook(@RequestBody BookDTO BookDTO) {
+    public Book createBook(@RequestBody BookDTO BookDTO) {
         try {
-            return api.create(BookDTO).toJson();
+            return api.create(BookDTO);
         } catch (IllegalStateException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }

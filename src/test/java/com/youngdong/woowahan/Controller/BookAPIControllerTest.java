@@ -54,8 +54,14 @@ class BookAPIControllerTest {
             Book book = new Book(casei[0], casei[1], casei[2]);
 //            System.out.println(book.getTitle()+book.getAuthor()+ book.getPublisher());
             //then
+
+            JsonObject obj = new JsonObject();
+            obj.addProperty("title", book.getTitle());
+            obj.addProperty("author", book.getAuthor());
+            obj.addProperty("publisher", book.getPublisher());
+
             mockMvc.perform(post("/book/new")
-                    .content(book.toJson())
+                    .content(obj.toString())
                     .contentType(MediaType.APPLICATION_JSON)
                     .characterEncoding("UTF-8"))
                     .andDo(print())
@@ -95,8 +101,14 @@ class BookAPIControllerTest {
 
             }
 
+            JsonObject obj = new JsonObject();
+            obj.addProperty("title", book.getTitle());
+            obj.addProperty("author", book.getAuthor());
+            obj.addProperty("publisher", book.getPublisher());
+
+
             mockMvc.perform(post("/book/new")
-                    .content(book.toJson())
+                    .content(obj.toString())
                     .contentType(MediaType.APPLICATION_JSON)
                     .characterEncoding("UTF-8"))
                     .andDo(print())

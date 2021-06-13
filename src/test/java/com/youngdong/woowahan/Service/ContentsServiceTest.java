@@ -36,7 +36,6 @@ class ContentsServiceTest {
 
         //when
         Contents savecontents = contentsService.create(contentsDTO);
-        System.out.println(savecontents.toJson());
         //then
         Contents findcontents = contentsService.readOne(savecontents.getCid());
         Assertions.assertThat(savecontents.getCid()).isEqualTo(findcontents.getCid());
@@ -116,7 +115,6 @@ class ContentsServiceTest {
         contentsService.update(savedcontents.getCid(), new ContentsDTO(saveuser.getUid() , savebook.getBid() , newpage, newcomtents));
 
         Contents findcontents = contentsService.readOne(savedcontents.getCid());
-        System.out.println(findcontents.toJson());
         //then
         Assertions.assertThat(findcontents.getUid()).isEqualTo(saveuser.getUid() );
         Assertions.assertThat(findcontents.getBid()).isEqualTo(savebook.getBid() );

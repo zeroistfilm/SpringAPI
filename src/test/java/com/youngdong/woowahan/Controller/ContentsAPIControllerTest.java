@@ -94,13 +94,21 @@ class ContentsAPIControllerTest {
 
 
         Contents contents = new Contents(Long.parseLong(uid), Long.parseLong(bid), 1, "contents");
+
+        JsonObject obj = new JsonObject();
+        obj.addProperty("uid", contents.getUid());
+        obj.addProperty("bid", contents.getBid());
+        obj.addProperty("page", contents.getPage());
+        obj.addProperty("contents", contents.getContents());
+
         mockMvc.perform(post("/contents/new")
-                .content(contents.toJson())
+                .content(String.valueOf(obj))
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8"))
                 .andDo(print())
                 .andExpect(status().isCreated());
     }
+
 
     @Test
     @DisplayName("HTTP 콘텐츠 조회")

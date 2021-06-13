@@ -21,7 +21,7 @@ class BookServiceTest {
 
         //when
         Book savebook = bookService.create(bookDTO);
-        System.out.println(savebook.toJson());
+
         //then
         Book findBook = bookService.readOne(savebook.getBid());
         Assertions.assertThat(savebook.getBid()).isEqualTo(findBook.getBid());
@@ -84,7 +84,6 @@ class BookServiceTest {
         bookService.update(saveduser.getBid(), new BookDTO(newTitle, newAuthor, newpublusher));
 
         Book findbook = bookService.readOne(saveduser.getBid());
-        System.out.println(findbook.toJson());
         //then
         Assertions.assertThat(findbook.getTitle()).isEqualTo(newTitle);
         Assertions.assertThat(findbook.getAuthor()).isEqualTo(newAuthor);

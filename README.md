@@ -208,44 +208,33 @@ public interface RepositoryInterface<Entity> {
 - 데이터 베이스 테이블에 직접 매칭되는 객체입니다.
 - 데이터베이스에 데이터를 CRUD하기 위해 필요한 모든 항목이 포함됩니다.
 - DTO에서 사용자가 컨트롤 하지 않은 `Unique ID, Create time, Update time`  이 추가됩니다.
-- 추가적으로 테이블의 모든 데이터를 JSON형태로 HTTP 응답을 해야 하기 때문에 toJson메서드를 추가 했습니다.  
 - User
 ```java
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UID")
-    private Long uid;
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name = "UID")
+private Long uid;
 
-    @Column(name = "Name")
-    private String name;
+@Column(name = "Name")
+private String name;
 
-    @Column(name = "Email")
-    private String email;
+@Column(name = "Email")
+private String email;
 
-    @Column(name = "created_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreationTimestamp
-    private Date createdDate;
+@Column(name = "created_date")
+@Temporal(TemporalType.TIMESTAMP)
+@CreationTimestamp
+private Date createdDate;
 
-    @Column(name = "updated_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    @UpdateTimestamp
-    private Date updatedDate;
+@Column(name = "updated_date")
+@Temporal(TemporalType.TIMESTAMP)
+@UpdateTimestamp
+private Date updatedDate;
 
-    public User(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
-    public String toJson() {
-        JsonObject obj = new JsonObject();
-        obj.addProperty("uid", this.uid);
-        obj.addProperty("name", this.name);
-        obj.addProperty("page", this.email);
-        obj.addProperty("createdAt", String.valueOf(this.createdDate));
-        obj.addProperty("updateAt", String.valueOf(this.updatedDate));
-        return String.valueOf(obj);
-    }
-
+public User(String name, String email) {
+    this.name = name;
+    this.email = email;
+}
 ```
 - Book DAO (main/Entity/Book 참조)
 - Contents DAO (main/Entity/Contents 참조)

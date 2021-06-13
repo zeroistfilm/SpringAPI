@@ -43,14 +43,5 @@ public class User {
         this.name = name;
         this.email = email;
     }
-    public String toJson() {
-        JsonObject obj = new JsonObject();
-        obj.addProperty("uid", this.uid);
-        obj.addProperty("name", this.name);
-        obj.addProperty("page", this.email);
-        obj.addProperty("createdAt", String.valueOf(this.createdDate));
-        obj.addProperty("updateAt", String.valueOf(this.updatedDate));
-        return String.valueOf(obj);
-    }
 
 }
