@@ -3,41 +3,42 @@
   ```shell
   $ docker-compose up -d
   ```
-  - docker compose file
-  ```yml
-  version: '3.7'
-  
-  services:
-    mysql-database:
-      image: mysql:5.7
-      container_name: mysql-woowahan
-      environment:
-      MYSQL_DATABASE: BookContents
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: sa
-      MYSQL_PASSWORD: password
-      TZ: Asia/Seoul
-    ports:
-      - 3306:3306
-      command:
-      - --character-set-server=utf8mb4
-      - --collation-server=utf8mb4_unicode_ci
-  ```
-  - docker for cli
-  ```shell
-  $ docker run \
-  --name mysql-woowahan \
-  -e MYSQL_ROOT_PASSWORD=password \
-  -e MYSQL_DATABASE=BookContents \
-  -e MYSQL_USER=sa \
-  -e MYSQL_PASSWORD=password \
-  -e TZ=Asia/Seoul \
-  -d \
-  -p 3306:3306 \
-  mysql:5.7 \
-  --character-set-server=utf8mb4 \
-  --collation-server=utf8mb4_unicode_ci
-  ```
+  - 참조
+    - docker compose file
+    ```yml
+    version: '3.7'
+    
+    services:
+      mysql-database:
+        image: mysql:5.7
+        container_name: mysql-woowahan
+        environment:
+          MYSQL_DATABASE: BookContents
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_USER: sa
+          MYSQL_PASSWORD: password
+          TZ: Asia/Seoul
+        ports:
+          - 3306:3306
+        command:
+          - --character-set-server=utf8mb4
+          - --collation-server=utf8mb4_unicode_ci
+    ```
+    - docker for cli
+    ```shell
+    $ docker run \
+    --name mysql-woowahan \
+    -e MYSQL_ROOT_PASSWORD=password \
+    -e MYSQL_DATABASE=BookContents \
+    -e MYSQL_USER=sa \
+    -e MYSQL_PASSWORD=password \
+    -e TZ=Asia/Seoul \
+    -d \
+    -p 3306:3306 \
+    mysql:5.7 \
+    --character-set-server=utf8mb4 \
+    --collation-server=utf8mb4_unicode_ci
+    ```
 
 - IntelliJ<br>  
   - 해당 프로젝트 import 후 실행 하시면 됩니다.
