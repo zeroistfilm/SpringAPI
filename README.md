@@ -149,34 +149,75 @@
   - 발췌문은 반드시 하나의 유저 정보를 포함해야 합니다. (*Mandatory*)
   - 발췌문은 반드시 하나의 책 정보를 포함해야 합니다. (*Mandatory*)
   - 유저와 책 테이블에 관계를 가진 발췌문 테이블은 `유저와 책 테이블의 각각 PK를 FK`로 가집니다.
+- 테이블을 생성하기 위한 SQL  
+  ```sql
+  set time_zone = 'Asia/Seoul';
   
+  create table user
+  (
+      UID   bigint not null auto_increment primary key,
+      Email varchar(100) not null,
+      Name  varchar(40) not null,
+  
+      created_date timestamp not null default current_timestamp,
+      updated_date timestamp not null default current_timestamp on update current_timestamp
+  );
+  
+  create table book
+  (
+      BID       bigint not null auto_increment primary key,
+      Title     varchar(100) not null,
+      Author    varchar(40)  not null,
+      Publisher varchar(40)  not null,
+  
+      created_date timestamp not null default current_timestamp,
+      updated_date timestamp not null default current_timestamp on update current_timestamp
+  );
+  
+  create table contents
+  (
+      CID     bigint not null auto_increment primary key,
+  
+      User_UID     bigint ,
+      FOREIGN KEY (User_UID) REFERENCES user ( UID),
+  
+      Book_BID     bigint,
+      FOREIGN KEY (Book_BID) REFERENCES book (BID),
+  
+      Page    int not null,
+      Contents varchar(255) not null,
+  
+      created_date timestamp not null default current_timestamp,
+      updated_date timestamp not null default current_timestamp on update current_timestamp
+  );
+  ```
 
 # 6. API structure <br>
-<img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb60dc3d9-853e-4385-bdf1-6c88d999e22f%2FUntitled.png?table=block&id=d8c303cb-01b0-4937-a80a-f4f1873caf31&width=1450&userId=14ad980b-ed44-4307-8ea9-6d98b0f9e4fd&cache=v2">
+  <img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb60dc3d9-853e-4385-bdf1-6c88d999e22f%2FUntitled.png?table=block&id=d8c303cb-01b0-4937-a80a-f4f1873caf31&width=1450&userId=14ad980b-ed44-4307-8ea9-6d98b0f9e4fd&cache=v2">
 
 # 7.인터페이스 설계 <br>
 User, Book, Contents 항목 모두 요구사항이 같기 때문에 공통의 인터페이스를 둡니다. <br>
 - Service Interface<br>
-```java
-public interface ServiceInterface<DTO,Entity> {
-    Entity create(DTO dto); 
-    Entity readOne(long id);
-    List<Entity> readAll();
-    Page readPage(int requestpage, int pagesize);
-    void update(long id,DTO dto);
-    void isVaild(DTO dto);
-}
-```
+  ```java
+  public interface ServiceInterface<DTO,Entity> {
+      Entity create(DTO dto); 
+      Entity readOne(long id);
+      List<Entity> readAll();
+      Page readPage(int requestpage, int pagesize);
+      void update(long id,DTO dto);
+      void isVaild(DTO dto);
+  }
+  ```
 
 - Repository Interface <br>
-```java
-public interface RepositoryInterface<Entity> {
-    Entity save(Entity entity);
-    Optional<Entity> findById(Long id);
-    List<Entity> findAll();
-    Page<Entity> findAll(Pageable sortedById);
-}
-```
+  ```java
+  public interface RepositoryInterface<Entity> {
+      Entity save(Entity entity);
+      Optional<Entity> findById(Long id);
+      List<Entity> findAll();
+      Page<Entity> findAll(Pageable sortedById);
+  }
+  ```
 
 # 8. 클래스 구현<br>
 
@@ -188,18 +229,18 @@ public interface RepositoryInterface<Entity> {
 
 - API에 요구되는 핵심 테이터만 다룹니다. Setter 없이 오직 생성자만을 통해 객체를 생성할 수 있습니다.
 - User <br>
-  ```java
+  ``` java
   private String name;
   private String email;
   ```
 - Book <br>
-   ```java
+   ``` java
   private String title;
   private String author;
   private String publisher;
   ```
 - Contents<br>
-  ```java
+  ``` java
   private Long uid;
   private Long bid;
   private Integer page;
@@ -211,32 +252,32 @@ public interface RepositoryInterface<Entity> {
 - 데이터베이스에 데이터를 CRUD하기 위해 필요한 모든 항목이 포함됩니다.
 - DTO에서 사용자가 컨트롤 하지 않은 `Unique ID, Create time, Update time`  이 추가됩니다.
 - User
-```java
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "UID")
-private Long uid;
-
-@Column(name = "Name")
-private String name;
-
-@Column(name = "Email")
-private String email;
-
-@Column(name = "created_date")
-@Temporal(TemporalType.TIMESTAMP)
-@CreationTimestamp
-private Date createdDate;
-
-@Column(name = "updated_date")
-@Temporal(TemporalType.TIMESTAMP)
-@UpdateTimestamp
-private Date updatedDate;
-
-public User(String name, String email) {
-    this.name = name;
-    this.email = email;
-}
-```
+  ``` java
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "UID")
+  private Long uid;
+  
+  @Column(name = "Name")
+  private String name;
+  
+  @Column(name = "Email")
+  private String email;
+  
+  @Column(name = "created_date")
+  @Temporal(TemporalType.TIMESTAMP)
+  @CreationTimestamp
+  private Date createdDate;
+  
+  @Column(name = "updated_date")
+  @Temporal(TemporalType.TIMESTAMP)
+  @UpdateTimestamp
+  private Date updatedDate;
+  
+  public User(String name, String email) {
+      this.name = name;
+      this.email = email;
+  }
+  ```
 - Book DAO (main/Entity/Book 참조)
 - Contents DAO (main/Entity/Contents 참조)
