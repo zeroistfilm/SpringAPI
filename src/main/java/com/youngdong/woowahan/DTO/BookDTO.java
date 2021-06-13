@@ -5,9 +5,7 @@ import lombok.Getter;
 public class BookDTO {
 
     private String title;
-
     private String author;
-
     private String publisher;
 
     public BookDTO(String title, String author, String publisher) {
