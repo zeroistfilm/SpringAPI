@@ -1,8 +1,8 @@
-package com.youngdong.woowahan.controller;
+package com.youngdong.woowahan.Controller;
 
-import com.youngdong.woowahan.CRUDInterface.APIInterface;
-import com.youngdong.woowahan.DTO.BookDTO;
-import com.youngdong.woowahan.Entity.Book;
+import com.youngdong.woowahan.ServiceInterface.ServiceInterface;
+import com.youngdong.woowahan.DTO.ContentsDTO;
+import com.youngdong.woowahan.Entity.Contents;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,22 +14,23 @@ import java.util.List;
 
 @RestController
 @Slf4j
-public class BookAPIController {
+public class ContentsAPIController {
     @Autowired
-    private APIInterface<BookDTO, Book> api;
+    private ServiceInterface<ContentsDTO, Contents> api;
 
-    @PostMapping("/book/new")
+    @PostMapping("/contents/new")
     @ResponseStatus(value = HttpStatus.CREATED) //201
-    public String createBook(@RequestBody BookDTO BookDTO) {
+    public String createcontents(@RequestBody ContentsDTO contentsDTO) {
         try {
-            return api.create(BookDTO).toJson();
+            return api.create(contentsDTO).toJson();
         } catch (IllegalStateException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
     }
 
-    @GetMapping("/book/")
-    public Book getBook(@RequestParam("id") Long id) {
+    @GetMapping("/contents")
+    @ResponseStatus(value = HttpStatus.OK) //200
+    public Contents getcontents(@RequestParam("id") Long id) {
         try {
             return api.readOne(id);
         } catch (IllegalStateException e) {
@@ -38,8 +39,9 @@ public class BookAPIController {
 
     }
 
-    @GetMapping("/book/all")
-    public List getAllBook() {
+    @GetMapping("/contents/all")
+    @ResponseStatus(value = HttpStatus.OK) //200
+    public List getAllcontentss() {
         try {
             return api.readAll();
         } catch (IllegalStateException e) {
@@ -47,23 +49,23 @@ public class BookAPIController {
         }
     }
 
-    @GetMapping("/book/allPages")
+    @GetMapping("/contents/allPages")
     @ResponseStatus(value = HttpStatus.OK) //200
-    public Page getAllBookPage(@RequestParam("pagesize") int pagesize, @RequestParam("requestpage") int requestpage) {
+    public Page getAllcontentssPage(@RequestParam("pagesize") int pagesize, @RequestParam("requestpage") int requestpage) {
         try {
             return api.readPage(requestpage, pagesize);
-        } catch (IllegalStateException e) {
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
     }
 
-    @PutMapping("/book")
+    @PutMapping("/contents")
     @ResponseStatus(value = HttpStatus.CREATED) //201
-    public void editBookInfo(@RequestParam("id") Long id, @RequestBody BookDTO BookDTO) {
+    public void editcontentsInfo(@RequestParam("id") Long id, @RequestBody ContentsDTO contentsDTO) {
 
         try {
-            api.update(id, BookDTO);
+            api.update(id, contentsDTO);
         }catch (IllegalStateException e) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
         }

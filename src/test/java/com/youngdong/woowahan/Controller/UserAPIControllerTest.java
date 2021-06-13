@@ -1,9 +1,9 @@
-package com.youngdong.woowahan.controller;
+package com.youngdong.woowahan.Controller;
 
 import com.google.gson.JsonObject;
 import com.youngdong.woowahan.DTO.UserDTO;
 import com.youngdong.woowahan.Entity.User;
-import com.youngdong.woowahan.service.UserService;
+import com.youngdong.woowahan.Service.UserService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -191,13 +190,12 @@ class UserAPIControllerTest {
             int pagesize = random.nextInt(30)+1;
 
 
-            Page allpages = userService.readPage(requestpage,pagesize);
-
             ResultMatcher result;
-            if (requestpage > allpages.getTotalPages()) {
-                result = status().isBadRequest();
-            } else {
+            try {
+                Page allpages = userService.readPage(requestpage, pagesize);
                 result = status().isOk();
+            } catch (Exception e) {
+                result = status().isBadRequest();
             }
 
             //then

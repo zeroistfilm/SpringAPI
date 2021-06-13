@@ -1,10 +1,10 @@
-package com.youngdong.woowahan.CRUDInterface;
+package com.youngdong.woowahan.ServiceInterface;
 
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-public interface APIInterface<DTO,Entity> {
+public interface ServiceInterface<DTO,Entity> {
     Entity create(DTO dto);
     Entity readOne(long id);
     List<Entity> readAll();

@@ -1,6 +1,6 @@
-package com.youngdong.woowahan.controller;
+package com.youngdong.woowahan.Controller;
 
-import com.youngdong.woowahan.CRUDInterface.APIInterface;
+import com.youngdong.woowahan.ServiceInterface.ServiceInterface;
 import com.youngdong.woowahan.DTO.UserDTO;
 import com.youngdong.woowahan.Entity.User;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 public class UserAPIController {
     @Autowired
-    private APIInterface<UserDTO, User> api;
+    private ServiceInterface<UserDTO, User> api;
 
     @PostMapping("/user/new")
     @ResponseStatus(value = HttpStatus.CREATED) //201
@@ -28,7 +28,8 @@ public class UserAPIController {
         }
     }
 
-    @GetMapping("/user/")
+    @GetMapping("/user")
+    @ResponseStatus(value = HttpStatus.OK) //200
     public User getUser(@RequestParam("id") Long id) {
         try {
             return api.readOne(id);
@@ -39,6 +40,7 @@ public class UserAPIController {
     }
 
     @GetMapping("/user/all")
+    @ResponseStatus(value = HttpStatus.OK) //200
     public List getAllUsers() {
         try {
             return api.readAll();

@@ -1,4 +1,4 @@
-package com.youngdong.woowahan.service;
+package com.youngdong.woowahan.Service;
 
 import com.youngdong.woowahan.DTO.UserDTO;
 import com.youngdong.woowahan.Entity.User;
@@ -7,9 +7,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-
-import java.util.Random;
 
 @SpringBootTest
 class UserServiceTest {

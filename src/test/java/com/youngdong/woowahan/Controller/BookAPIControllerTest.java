@@ -1,4 +1,4 @@
-package com.youngdong.woowahan.controller;
+package com.youngdong.woowahan.Controller;
 
 
 import com.google.gson.JsonElement;
@@ -6,8 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.youngdong.woowahan.DTO.BookDTO;
 import com.youngdong.woowahan.Entity.Book;
-import com.youngdong.woowahan.repository.APIRepository;
-import com.youngdong.woowahan.service.BookService;
+import com.youngdong.woowahan.Service.BookService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,9 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -156,6 +152,21 @@ class BookAPIControllerTest {
 
     }
 
+
+    @Test
+    @DisplayName("HTTP 모든 책조회")
+    public void Readbookall() throws Exception{
+
+        //then
+        MvcResult result = mockMvc.perform(get("/book/all")
+                .characterEncoding("UTF-8"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+        String content = result.getResponse().getContentAsString();
+
+    }
+
     @Test
     @DisplayName("HTTP 책조회 페이징")
     public void ReadbookPageing() throws Exception {
@@ -176,13 +187,13 @@ class BookAPIControllerTest {
             int requestpage = random.nextInt(30);
             int pagesize = random.nextInt(30)+1;
 
-            Page allpages = bookService.readPage(requestpage, pagesize);
-
             ResultMatcher result;
-            if (requestpage > allpages.getTotalPages()) {
-                result = status().isBadRequest();
-            } else {
+            try {
+                Page allpages = bookService.readPage(requestpage, pagesize);
                 result = status().isOk();
+
+            } catch (Exception e) {
+                result = status().isBadRequest();
             }
 
             //then

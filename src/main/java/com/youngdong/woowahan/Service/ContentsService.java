@@ -1,10 +1,9 @@
-package com.youngdong.woowahan.service;
+package com.youngdong.woowahan.Service;
 
-import com.youngdong.woowahan.CRUDInterface.APIInterface;
+import com.youngdong.woowahan.ServiceInterface.ServiceInterface;
 import com.youngdong.woowahan.DTO.ContentsDTO;
 import com.youngdong.woowahan.Entity.Contents;
-import com.youngdong.woowahan.Entity.User;
-import com.youngdong.woowahan.repository.APIRepository;
+import com.youngdong.woowahan.RepositoryInterface.RepositoryInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,10 +17,10 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class ContentsService implements APIInterface<ContentsDTO, Contents> {
+public class ContentsService implements ServiceInterface<ContentsDTO, Contents> {
 
     @Autowired
-    private APIRepository<Contents> contentsRepository;
+    private RepositoryInterface<Contents> contentsRepository;
 
     @Override
     public Contents create(ContentsDTO contentsDTO) {
@@ -64,7 +63,7 @@ public class ContentsService implements APIInterface<ContentsDTO, Contents> {
             log.info("Out of page");
             throw new IllegalStateException("out of page, MaxPage : " + allpages.getTotalPages());
         } else {
-            log.info("Success read all contents");
+            log.info("Success read contents for paging");
             return allpages;
         }
 

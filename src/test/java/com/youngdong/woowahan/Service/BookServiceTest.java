@@ -1,9 +1,7 @@
-package com.youngdong.woowahan.service;
+package com.youngdong.woowahan.Service;
 
 import com.youngdong.woowahan.DTO.BookDTO;
-import com.youngdong.woowahan.DTO.UserDTO;
 import com.youngdong.woowahan.Entity.Book;
-import com.youngdong.woowahan.Entity.User;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

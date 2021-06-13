@@ -1,9 +1,9 @@
-package com.youngdong.woowahan.service;
+package com.youngdong.woowahan.Service;
 
-import com.youngdong.woowahan.CRUDInterface.APIInterface;
+import com.youngdong.woowahan.ServiceInterface.ServiceInterface;
 import com.youngdong.woowahan.DTO.UserDTO;
 import com.youngdong.woowahan.Entity.User;
-import com.youngdong.woowahan.repository.APIRepository;
+import com.youngdong.woowahan.RepositoryInterface.RepositoryInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,10 +17,10 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class UserService implements APIInterface<UserDTO, User> {
+public class UserService implements ServiceInterface<UserDTO, User> {
 
     @Autowired
-    private APIRepository<User> userRepository;
+    private RepositoryInterface<User> userRepository;
 
     @Override
     public User create(UserDTO userDTO) {
@@ -64,7 +64,7 @@ public class UserService implements APIInterface<UserDTO, User> {
             log.info("Out of page");
             throw new IllegalStateException("out of page, MaxPage : " + allpages.getTotalPages());
         } else {
-            log.info("Success read all users");
+            log.info("Success read user for paging");
             return allpages;
         }
 

@@ -1,7 +1,7 @@
 package com.youngdong.woowahan.DTO;
+import lombok.Getter;
 
-
-
+@Getter
 public class BookDTO {
 
     private String title;
@@ -14,17 +14,5 @@ public class BookDTO {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getPublisher() {
-        return publisher;
     }
 }

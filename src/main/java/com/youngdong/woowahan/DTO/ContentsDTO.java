@@ -1,7 +1,9 @@
 package com.youngdong.woowahan.DTO;
 
 
+import lombok.Getter;
 
+@Getter
 public class ContentsDTO {
 
     private Long uid;
@@ -17,21 +19,5 @@ public class ContentsDTO {
         this.bid = bid;
         this.page = page;
         this.contents = contents;
-    }
-
-    public Long getUid() {
-        return uid;
-    }
-
-    public Long getBid() {
-        return bid;
-    }
-
-    public Integer getPage() {
-        return page;
-    }
-
-    public String getContents() {
-        return contents;
     }
 }

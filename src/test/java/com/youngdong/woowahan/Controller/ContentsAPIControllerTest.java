@@ -1,4 +1,4 @@
-package com.youngdong.woowahan.controller;
+package com.youngdong.woowahan.Controller;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -9,9 +9,9 @@ import com.youngdong.woowahan.DTO.UserDTO;
 import com.youngdong.woowahan.Entity.Book;
 import com.youngdong.woowahan.Entity.Contents;
 import com.youngdong.woowahan.Entity.User;
-import com.youngdong.woowahan.service.BookService;
-import com.youngdong.woowahan.service.ContentsService;
-import com.youngdong.woowahan.service.UserService;
+import com.youngdong.woowahan.Service.BookService;
+import com.youngdong.woowahan.Service.ContentsService;
+import com.youngdong.woowahan.Service.UserService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,12 +23,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.result.StatusResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -149,6 +147,17 @@ class ContentsAPIControllerTest {
     @Test
     @DisplayName("HTTP 모든 콘텐츠 조회")
     public void readAllcontents() throws Exception {
+        UserDTO user = new UserDTO("name", "email@naver.com");
+        BookDTO book = new BookDTO("title", "author", "publisher");
+
+        int page = 1;
+        String contents = "contents";
+
+        User saveuser = userService.create(user);
+        Book savebook = bookService.create(book);
+
+        ContentsDTO contents1 = new ContentsDTO(saveuser.getUid(), savebook.getBid(), page, contents);
+
         MvcResult result = mockMvc.perform(get("/contents/all")
                 .characterEncoding("UTF-8"))
                 .andDo(print())
@@ -177,15 +186,17 @@ class ContentsAPIControllerTest {
             int requestpage = random.nextInt(30);
             int pagesize = random.nextInt(30) + 1;
 
-
-            Page allpages = contentsService.readPage(requestpage,pagesize);
+            System.out.println("yd test " + String.valueOf(pagesize) + " " + String.valueOf(requestpage));
 
             ResultMatcher result;
-            if (requestpage > allpages.getTotalPages()) {
-                result = status().isBadRequest();
-            } else {
+            try {
+                Page allpages = contentsService.readPage(requestpage, pagesize);
                 result = status().isOk();
+
+            } catch (Exception e) {
+                result = status().isBadRequest();
             }
+
 
             //then
             mockMvc.perform(get("/contents/allPages")
@@ -256,7 +267,6 @@ class ContentsAPIControllerTest {
         Assertions.assertThat(retContents.getContents()).isEqualTo(newcontents);
 
     }
-
 
 
 }
