@@ -182,7 +182,7 @@ public interface RepositoryInterface<Entity> {
 
 - Service Class<br>
 각각의 서비스 클래스는 서비스 인터페이스를 상속받고, 인터페이스에 명시된 메서드를 오버라이드하여 구체적인 메서드를 정의합니다.
-  - UserService에는 Email을 검증하는 로직이 추가가 되어있습니다. (userService 단독으로 사용되기 때문에 인터페이스에는 정의하지 않았습니다.)
+  - UserService에는 Email을 검증하는 로직이 추가가 되어있습니다. <br> (userService 단독으로 사용되기 때문에 인터페이스에는 정의하지 않았습니다.)
     
 # 9. DTO
 
@@ -206,7 +206,7 @@ public interface RepositoryInterface<Entity> {
   private String contents;
   ```
 
-#  10. DAO
+#  10. DAO(Entity)
 - 데이터 베이스 테이블에 직접 매칭되는 객체입니다.
 - 데이터베이스에 데이터를 CRUD하기 위해 필요한 모든 항목이 포함됩니다.
 - DTO에서 사용자가 컨트롤 하지 않은 `Unique ID, Create time, Update time`  이 추가됩니다.
