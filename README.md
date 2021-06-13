@@ -26,23 +26,18 @@
   - Read  
       - 특정 유저 조회<br>
       GET http://localhost:8080/user/?id={UID} <br>
-        성공 : 200<br>
-        실패 : 204 (데이터 없음)
         
       - 모든 유저 조회<br>
         GET http://localhost:8080/user/all <br>
-        성공 : 200<br>
-        실패 : 204 (데이터 없음)
+
       - 모든 유저 조회(페이징)<br>
         GET http://localhost:8080/user/allPages?pagesize={pagesize}}&requestpage={requestpage} <br>
-        성공 : 200<br>
-        실패 : 400 (비정상 요청)
+
   - Update 
       - 유저 수정<br>
         PUT http://localhost:8080/user/?id={UID} <br>
         JSON {uid, name, email} <br>
-        성공 : 20<br>
-        실패 : 204 (데이터 없음)
+
 - Book
   - Create
     - 책 등록<br>
