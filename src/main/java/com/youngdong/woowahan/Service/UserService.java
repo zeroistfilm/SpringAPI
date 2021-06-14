@@ -76,10 +76,7 @@ public class UserService implements ServiceInterface<UserDTO, User> {
     @Override
     public void update(long id, UserDTO userDTO) {
         Optional<User> userbyId = userRepository.findById(id);
-
-        String newname = (!userDTO.getName().isEmpty()) ? userDTO.getName() : userbyId.get().getName();
-
-
+        String newname = (userDTO.getName()!=null) ? userDTO.getName() : userbyId.get().getName();
         userbyId.ifPresentOrElse(
                 selectUser -> {
                     selectUser.setName(newname);

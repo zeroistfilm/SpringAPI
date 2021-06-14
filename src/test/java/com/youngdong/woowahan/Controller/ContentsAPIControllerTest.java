@@ -218,7 +218,7 @@ class ContentsAPIControllerTest {
     }
 
     @Test
-    @DisplayName("HTTP 콘텐츠 수정")
+    @DisplayName("HTTP 콘텐츠 ,페이지 수정")
     public void updateContents() throws Exception {
 
         //데이터 입력
@@ -250,8 +250,6 @@ class ContentsAPIControllerTest {
         String newcontents = "contents";
 
         JsonObject obj = new JsonObject();
-        obj.addProperty("uid", newsaveuser.getUid());
-        obj.addProperty("bid", newsavebook.getBid());
         obj.addProperty("page", newpage);
         obj.addProperty("contents", newcontents);
 
@@ -270,6 +268,63 @@ class ContentsAPIControllerTest {
         // 저장된 데이터가 요청한 데이터와 같은지 확인
         Contents retContents = contentsService.readOne(savecontents.getCid());
         Assertions.assertThat(String.valueOf(retContents.getPage())).isEqualTo(String.valueOf(newpage));
+        Assertions.assertThat(retContents.getContents()).isEqualTo(newcontents);
+
+    }
+
+
+    @Test
+    @DisplayName("HTTP 콘텐츠만 수정")
+    public void updateContentsOnlycontents() throws Exception {
+
+        //데이터 입력
+        String name = "name";
+        String email = "email@naver.com";
+        String title = "title";
+        String author = "author";
+        String publisher = "publisher";
+        UserDTO user = new UserDTO(name, email);
+        BookDTO book = new BookDTO(title, author, publisher);
+        int page = 1;
+        String contents = "contents";
+        User saveuser = userService.create(user);
+        Book savebook = bookService.create(book);
+        ContentsDTO contents1 = new ContentsDTO(saveuser.getUid(), savebook.getBid(), page, contents);
+        Contents savecontents = contentsService.create(contents1);
+
+        //변경할 데이터
+        String newname = "newname";
+        String newemail = "newemail@naver.com";
+        String newtitle = "newtitle";
+        String newauthor = "newauthor";
+        String newpublisher = "newpublisher";
+        UserDTO newuser = new UserDTO(newname, newemail);
+        BookDTO newbook = new BookDTO(newtitle, newauthor, newpublisher);
+        User newsaveuser = userService.create(newuser);
+        Book newsavebook = bookService.create(newbook);
+        int newpage = 10;
+        String newcontents = "contents";
+
+        JsonObject obj = new JsonObject();
+//        obj.addProperty("page", newpage);
+        obj.addProperty("contents", newcontents);
+
+        Thread.sleep(2000); //1초 대기
+
+        //HTTP요청
+        MvcResult result = mockMvc.perform(put("/contents")
+                .param("id", String.valueOf(savecontents.getCid()))
+                .content(obj.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8"))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        // 저장된 데이터가 요청한 데이터와 같은지 확인
+        Contents retContents = contentsService.readOne(savecontents.getCid());
+
+        Assertions.assertThat(String.valueOf(retContents.getPage())).isEqualTo(String.valueOf(page));
         Assertions.assertThat(retContents.getContents()).isEqualTo(newcontents);
 
     }

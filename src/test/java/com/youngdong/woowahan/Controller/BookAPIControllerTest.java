@@ -219,21 +219,21 @@ class BookAPIControllerTest {
     }
 
     @Test
-    @DisplayName("HTTP 책수정")
-    public void Updatebook() throws Exception{
+    @DisplayName("HTTP 책수정 // 타이틀만 수정")
+    public void Updatebook1() throws Exception{
 
 
         String newTitle = "newtitle2";
         String newAuthor = "newauthor2";
         String newPublisher = "newpublisher2";
 
-        BookDTO book = new BookDTO("title", "author", "pulbisher");
+        BookDTO book = new BookDTO("title", "author", "publisher");
         Book savebook = bookService.create(book);
 
         JsonObject obj = new JsonObject();
         obj.addProperty("title", newTitle);
-        obj.addProperty("author", newAuthor);
-        obj.addProperty("publisher", newPublisher);
+//        obj.addProperty("author", newAuthor);
+//        obj.addProperty("publisher", newPublisher);
 
 
         //then
@@ -250,10 +250,83 @@ class BookAPIControllerTest {
         Book book2 = bookService.readOne(savebook.getBid());
 
         Assertions.assertThat(book2.getTitle()).isEqualTo(newTitle);
-        Assertions.assertThat(book2.getAuthor()).isEqualTo(newAuthor);
-        Assertions.assertThat(book2.getPublisher()).isEqualTo(newPublisher);
+        Assertions.assertThat(book2.getAuthor()).isEqualTo("author");
+        Assertions.assertThat(book2.getPublisher()).isEqualTo("publisher");
 
     }
 
+    @Test
+    @DisplayName("HTTP 책수정 // 저자만 수정")
+    public void Updatebook2() throws Exception{
+
+
+        String newTitle = "newtitle2";
+        String newAuthor = "newauthor2";
+        String newPublisher = "newpublisher2";
+
+        BookDTO book = new BookDTO("title", "author", "publisher");
+        Book savebook = bookService.create(book);
+
+        JsonObject obj = new JsonObject();
+//        obj.addProperty("title", newTitle);
+        obj.addProperty("author", newAuthor);
+//        obj.addProperty("publisher", newPublisher);
+
+
+        //then
+        MvcResult result = mockMvc.perform(put("/book")
+                .param("id", String.valueOf(savebook.getBid()))
+                .content(obj.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8"))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        System.out.println(result);
+        Book book2 = bookService.readOne(savebook.getBid());
+
+        Assertions.assertThat(book2.getTitle()).isEqualTo("title");
+        Assertions.assertThat(book2.getAuthor()).isEqualTo(newAuthor);
+        Assertions.assertThat(book2.getPublisher()).isEqualTo("publisher");
+
+    }
+
+    @Test
+    @DisplayName("HTTP 책수정 // 출판사만 수정")
+    public void Updatebook3() throws Exception{
+
+
+        String newTitle = "newtitle2";
+        String newAuthor = "newauthor2";
+        String newPublisher = "newpublisher2";
+
+        BookDTO book = new BookDTO("title", "author", "publisher");
+        Book savebook = bookService.create(book);
+
+        JsonObject obj = new JsonObject();
+//        obj.addProperty("title", newTitle);
+//        obj.addProperty("author", newAuthor);
+        obj.addProperty("publisher", newPublisher);
+
+
+        //then
+        MvcResult result = mockMvc.perform(put("/book")
+                .param("id", String.valueOf(savebook.getBid()))
+                .content(obj.toString())
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8"))
+                .andDo(print())
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        System.out.println(result);
+        Book book2 = bookService.readOne(savebook.getBid());
+
+        Assertions.assertThat(book2.getTitle()).isEqualTo("title");
+        Assertions.assertThat(book2.getAuthor()).isEqualTo("author");
+        Assertions.assertThat(book2.getPublisher()).isEqualTo(newPublisher);
+
+    }
 
 }
