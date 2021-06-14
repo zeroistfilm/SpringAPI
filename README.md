@@ -132,7 +132,7 @@
 - HTTP : http요청을 통해 호출되는 컨트롤러를 테스트합니다. 
 <br>
 <br>
-<img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F8def6b55-848a-425e-adf0-e7f54db0cc98%2FUntitled.png?table=block&id=4668ff2d-ebbd-454c-9f15-b9dc0db77bfe&width=2980&userId=14ad980b-ed44-4307-8ea9-6d98b0f9e4fd&cache=v2">
+<img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F67ff3839-a3c1-457c-b7ed-4d450967f4a6%2FUntitled.png?table=block&id=3a7467d2-27bc-4b2e-9cf6-2c36ebaa4afd&width=3410&userId=14ad980b-ed44-4307-8ea9-6d98b0f9e4fd&cache=v2">
 
 # 5. DB schema
 <br>
