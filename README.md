@@ -3,7 +3,19 @@
   ```shell
   $ docker-compose up -d
   ```
-  - 참조
+
+- CLI</br> 
+  프로젝트 최상위 폴더에서 다음 명령어를 입력합니다.
+  ```shell
+  $ ./gradlew build
+  ```
+  ```shell
+  $ java -jar ./build/libs/woowahan-0.0.1-SNAPSHOT.jar
+  ```
+- IntelliJ<br>
+  - 해당 프로젝트 import 후 실행 하시면 됩니다.
+  
+- 참조
     - docker compose file
     ```yml
     version: '3.7'
@@ -40,18 +52,6 @@
     --collation-server=utf8mb4_unicode_ci
     ```
 
-- IntelliJ<br>  
-  - 해당 프로젝트 import 후 실행 하시면 됩니다.
-
-
-- CLI</br>
-  프로젝트 최상위 폴더에서 다음 명령어를 입력합니다.
-  ```shell
-  $ ./gradlew build
-  ```
-  ```shell
-  $ java -jar ./build/libs/woowahan-0.0.1-SNAPSHOT.jar
-  ```
 
 # 2. 요구사항
 - 사용자의 이름을 변경할 수 있는 API를 제공합니다.
