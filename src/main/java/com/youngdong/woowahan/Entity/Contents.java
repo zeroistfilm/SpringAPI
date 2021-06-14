@@ -1,11 +1,9 @@
 package com.youngdong.woowahan.Entity;
 
 
-import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,8 +12,8 @@ import java.util.Date;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
 public class Contents {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +42,8 @@ public class Contents {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
 
+
+    //생성자오버로딩
     public Contents(Long uid, Long bid, Integer page, String contents) {
         this.uid = uid;
         this.bid = bid;

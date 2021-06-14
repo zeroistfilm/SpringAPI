@@ -13,8 +13,8 @@ import java.util.Date;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +40,7 @@ public class Book {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedDate;
 
+    //생성자오버로딩
     public Book(String title, String author, String publisher) {
         this.title = title.strip();
         this.author = author.strip();

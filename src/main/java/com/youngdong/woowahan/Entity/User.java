@@ -14,9 +14,8 @@ import java.util.Date;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
-
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,9 +38,12 @@ public class User {
     @UpdateTimestamp
     private Date updatedDate;
 
+
+    //생성자오버로딩
     public User(String name, String email) {
         this.name = name;
         this.email = email;
     }
+
 
 }
