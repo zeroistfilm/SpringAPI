@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -25,25 +26,21 @@ public class BookService implements ServiceInterface<BookDTO, Book> {
 
     @Override
     public Book create(BookDTO bookDTO) {
-        try {
-            isVaild(bookDTO);
-            Book book = new Book(bookDTO.getTitle(), bookDTO.getAuthor(), bookDTO.getPublisher());
-            log.info("Success create book" + book);
-            return bookRepository.save(book);
-        } catch (Exception e) {
-            throw new IllegalStateException(e.getMessage());
-        }
+        isVaild(bookDTO);
+        Book book = new Book(bookDTO.getTitle(), bookDTO.getAuthor(), bookDTO.getPublisher());
+        log.info("Success create book" + book);
+        return bookRepository.save(book);
     }
 
     @Override
     public Book readOne(long id) {
         Optional<Book> bookbyId = bookRepository.findById(id);
         if (bookbyId.isPresent()) {
-            log.info("Success Read book"+bookbyId.get());
+            log.info("Success Read book" + bookbyId.get());
             return bookbyId.orElse(null);
         } else {
             log.info("Fail Read book");
-            throw new IllegalStateException("No content");
+            throw new NoSuchElementException("No content");
         }
 
     }
@@ -56,7 +53,7 @@ public class BookService implements ServiceInterface<BookDTO, Book> {
             return bookAll;
         } else {
             log.info("Fail Read All books");
-            throw new IllegalStateException("No content");
+            throw new NoSuchElementException("No content");
         }
 
     }
@@ -68,7 +65,7 @@ public class BookService implements ServiceInterface<BookDTO, Book> {
 
         if (requestpage > allpages.getTotalPages()) {
             log.info("Out of page");
-            throw new IllegalStateException("out of page, MaxPage : " + allpages.getTotalPages());
+            throw new IllegalArgumentException("out of page, MaxPage : " + allpages.getTotalPages());
         } else {
             log.info("Success read book for paging");
             return allpages;
@@ -80,9 +77,9 @@ public class BookService implements ServiceInterface<BookDTO, Book> {
     @Override
     public void update(long id, BookDTO bookDTO) {
         Optional<Book> bookById = bookRepository.findById(id);
-        String newTitle= (bookDTO.getTitle() != null) ? bookDTO.getTitle() : bookById.get().getTitle();
-        String newAuthor= (bookDTO.getAuthor() != null) ? bookDTO.getAuthor() : bookById.get().getAuthor();
-        String newPublisher= (bookDTO.getPublisher() != null) ? bookDTO.getPublisher() : bookById.get().getPublisher();
+        String newTitle = (bookDTO.getTitle() != null) ? bookDTO.getTitle() : bookById.get().getTitle();
+        String newAuthor = (bookDTO.getAuthor() != null) ? bookDTO.getAuthor() : bookById.get().getAuthor();
+        String newPublisher = (bookDTO.getPublisher() != null) ? bookDTO.getPublisher() : bookById.get().getPublisher();
         bookById.ifPresentOrElse(
                 selectBook -> {
                     selectBook.setTitle(newTitle);
@@ -93,7 +90,7 @@ public class BookService implements ServiceInterface<BookDTO, Book> {
                 },
                 () -> {
                     log.info("Fail to update");
-                    throw new IllegalStateException("No contents");
+                    throw new NoSuchElementException("No contents");
                 });
     }
 
@@ -115,7 +112,7 @@ public class BookService implements ServiceInterface<BookDTO, Book> {
 
         if (errorMessage.length() > 0) {
             errorMessage.append("정보가 없습니다");
-            throw new IllegalStateException(String.valueOf(errorMessage).strip());
+            throw new IllegalArgumentException(String.valueOf(errorMessage).strip());
         }
     }
 

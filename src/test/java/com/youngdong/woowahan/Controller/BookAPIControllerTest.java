@@ -107,13 +107,17 @@ class BookAPIControllerTest {
             obj.addProperty("publisher", book.getPublisher());
 
 
-            mockMvc.perform(post("/book/new")
+            MvcResult result = mockMvc.perform(post("/book/new")
                     .content(obj.toString())
                     .contentType(MediaType.APPLICATION_JSON)
                     .characterEncoding("UTF-8"))
                     .andDo(print())
                     .andExpect(status().isBadRequest())
-                    .andExpect(status().reason(errorMessage.toString()));
+                    .andReturn();
+
+            String content = result.getResponse().getContentAsString();
+            Assertions.assertThat(content).isEqualTo(errorMessage.toString());
+
         }
     }
 

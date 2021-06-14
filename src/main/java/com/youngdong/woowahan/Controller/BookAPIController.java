@@ -1,14 +1,13 @@
 package com.youngdong.woowahan.Controller;
 
-import com.youngdong.woowahan.ServiceInterface.ServiceInterface;
 import com.youngdong.woowahan.DTO.BookDTO;
 import com.youngdong.woowahan.Entity.Book;
+import com.youngdong.woowahan.ServiceInterface.ServiceInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,55 +20,31 @@ public class BookAPIController {
     @PostMapping("/book/new")
     @ResponseStatus(value = HttpStatus.CREATED) //201
     public Book createBook(@RequestBody BookDTO BookDTO) {
-        try {
-            return api.create(BookDTO);
-        } catch (IllegalStateException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
-        }
+        return api.create(BookDTO);
     }
 
     @GetMapping("/book")
     @ResponseStatus(value = HttpStatus.OK) //200
     public Book getBook(@RequestParam("id") Long id) {
-        try {
-            return api.readOne(id);
-        } catch (IllegalStateException e) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
-        }
-
+        return api.readOne(id);
     }
 
     @GetMapping("/book/all")
     @ResponseStatus(value = HttpStatus.OK) //200
     public List getAllBook() {
-        try {
-            return api.readAll();
-        } catch (IllegalStateException e) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
-        }
+        return api.readAll();
     }
 
     @GetMapping("/book/allPages")
     @ResponseStatus(value = HttpStatus.OK) //200
     public Page getAllBookPage(@RequestParam("pagesize") int pagesize, @RequestParam("requestpage") int requestpage) {
-        try {
-            return api.readPage(requestpage, pagesize);
-        } catch (IllegalStateException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
-        }
-
+        return api.readPage(requestpage, pagesize);
     }
 
     @PutMapping("/book")
     @ResponseStatus(value = HttpStatus.CREATED) //201
     public void editBookInfo(@RequestParam("id") Long id, @RequestBody BookDTO BookDTO) {
-
-        try {
-            api.update(id, BookDTO);
-        }catch (IllegalStateException e) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, e.getMessage());
-        }
-
+        api.update(id, BookDTO);
     }
 
 }

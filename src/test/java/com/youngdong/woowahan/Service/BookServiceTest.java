@@ -7,6 +7,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.NoSuchElementException;
+
 @SpringBootTest
 class BookServiceTest {
 
@@ -61,7 +64,7 @@ class BookServiceTest {
             try {
                 //when
                 bookService.create(bookDTO);
-            } catch (IllegalStateException e) {
+            } catch (IllegalArgumentException e) {
                 //then
                 Assertions.assertThat(e.getMessage()).isEqualTo(errorMessage+"정보가 없습니다");
             }
@@ -103,7 +106,7 @@ class BookServiceTest {
 
         try {
             bookService.update(requestID, new BookDTO(newTitle, newAuthor, newpublusher));
-        }catch (IllegalStateException e){
+        }catch (NoSuchElementException e){
             Assertions.assertThat(e.getMessage()).isEqualTo("No contents");
         }
 

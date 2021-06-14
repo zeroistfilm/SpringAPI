@@ -1,9 +1,9 @@
 package com.youngdong.woowahan.Service;
 
-import com.youngdong.woowahan.ServiceInterface.ServiceInterface;
 import com.youngdong.woowahan.DTO.ContentsDTO;
 import com.youngdong.woowahan.Entity.Contents;
 import com.youngdong.woowahan.RepositoryInterface.RepositoryInterface;
+import com.youngdong.woowahan.ServiceInterface.ServiceInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -37,7 +38,7 @@ public class ContentsService implements ServiceInterface<ContentsDTO, Contents> 
             return contentsbyId.orElse(null);
         } else {
             log.info("Fail Read User");
-            throw new IllegalStateException("No content");
+            throw new NoSuchElementException("No content");
         }
 
     }
@@ -50,7 +51,7 @@ public class ContentsService implements ServiceInterface<ContentsDTO, Contents> 
             return contentsAll;
         } else {
             log.info("Fail Read All contents");
-            throw new IllegalStateException("No content");
+            throw new NoSuchElementException("No content");
         }
     }
 
@@ -61,7 +62,7 @@ public class ContentsService implements ServiceInterface<ContentsDTO, Contents> 
 
         if (requestpage > allpages.getTotalPages()) {
             log.info("Out of page");
-            throw new IllegalStateException("out of page, MaxPage : " + allpages.getTotalPages());
+            throw new IllegalArgumentException("out of page, MaxPage : " + allpages.getTotalPages());
         } else {
             log.info("Success read contents for paging");
             return allpages;
@@ -74,8 +75,8 @@ public class ContentsService implements ServiceInterface<ContentsDTO, Contents> 
 
         Optional<Contents> contentsbyId = contentsRepository.findById(id);
 
-        int newpage= (contentsDTO.getPage()!=null) ? contentsDTO.getPage() : contentsbyId.get().getPage();
-        String newcontents = (contentsDTO.getContents()!=null) ? contentsDTO.getContents() : contentsbyId.get().getContents();
+        int newpage = (contentsDTO.getPage() != null) ? contentsDTO.getPage() : contentsbyId.get().getPage();
+        String newcontents = (contentsDTO.getContents() != null) ? contentsDTO.getContents() : contentsbyId.get().getContents();
 
         contentsbyId.ifPresentOrElse(
                 selectContents -> {
@@ -87,7 +88,7 @@ public class ContentsService implements ServiceInterface<ContentsDTO, Contents> 
                 },
                 () -> {
                     log.info("Fail to update");
-                    throw new IllegalStateException("No contents");
+                    throw new NoSuchElementException("No contents");
                 });
 
     }
@@ -97,14 +98,14 @@ public class ContentsService implements ServiceInterface<ContentsDTO, Contents> 
 
         StringBuilder errorMessage = new StringBuilder();
 
-        if (contentsDTO.getUid()==null) {
+        if (contentsDTO.getUid() == null) {
             errorMessage.append("Uid ");
         }
 
-        if (contentsDTO.getBid()==null) {
+        if (contentsDTO.getBid() == null) {
             errorMessage.append("Bid ");
         }
-        if (contentsDTO.getPage()==null) {
+        if (contentsDTO.getPage() == null) {
             errorMessage.append("Page ");
         }
         if (contentsDTO.getContents().isEmpty()) {
@@ -114,7 +115,7 @@ public class ContentsService implements ServiceInterface<ContentsDTO, Contents> 
 
         if (errorMessage.length() > 0) {
             errorMessage.append("정보가 없습니다");
-            throw new IllegalStateException(String.valueOf(errorMessage).strip());
+            throw new IllegalArgumentException(String.valueOf(errorMessage).strip());
         }
     }
 

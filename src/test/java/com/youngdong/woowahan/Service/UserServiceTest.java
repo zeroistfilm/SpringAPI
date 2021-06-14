@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.NoSuchElementException;
+
 @SpringBootTest
 class UserServiceTest {
 
@@ -35,7 +37,7 @@ class UserServiceTest {
         try {
             //when
             userService.create(userDTO);
-        } catch (IllegalStateException e) {
+        } catch (IllegalArgumentException e) {
             //then
             Assertions.assertThat(e.getMessage()).isEqualTo("Name 정보가 없습니다");
         }
@@ -50,7 +52,7 @@ class UserServiceTest {
         try {
             //when
             userService.create(userDTO);
-        } catch (IllegalStateException e) {
+        } catch (IllegalArgumentException e) {
             //then
             Assertions.assertThat(e.getMessage()).isEqualTo("Email 정보가 없습니다");
         }
@@ -64,7 +66,7 @@ class UserServiceTest {
         try {
             //when
             userService.create(userDTO);
-        } catch (IllegalStateException e) {
+        } catch (IllegalArgumentException e) {
             //then
             Assertions.assertThat(e.getMessage()).isEqualTo("Name Email 정보가 없습니다");
         }
@@ -112,7 +114,7 @@ class UserServiceTest {
             try {
                 //when
                 userService.create(userDTO);
-            } catch (IllegalStateException e) {
+            } catch (IllegalArgumentException e) {
                 //then
                 Assertions.assertThat(e.getMessage()).isEqualTo("회원 이메일 정보가 양식에 맞지 않습니다");
             }
@@ -148,7 +150,7 @@ class UserServiceTest {
 
         try {
             userService.update(requestID, new UserDTO(newName, newEmail));
-        }catch (IllegalStateException e){
+        }catch (NoSuchElementException e){
             Assertions.assertThat(e.getMessage()).isEqualTo("No contents");
         }
 

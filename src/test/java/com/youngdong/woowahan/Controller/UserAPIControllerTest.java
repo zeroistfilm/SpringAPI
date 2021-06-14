@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.youngdong.woowahan.DTO.UserDTO;
 import com.youngdong.woowahan.Entity.User;
 import com.youngdong.woowahan.Service.UserService;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,13 +42,17 @@ class UserAPIControllerTest {
         obj.addProperty("email", user.getEmail());
 
 
-        mockMvc.perform(post("/user/new")
+        MvcResult result = mockMvc.perform(post("/user/new")
                 .content(obj.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8"))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
-                .andExpect(status().reason("Name 정보가 없습니다"));
+                .andReturn();
+
+
+        String content = result.getResponse().getContentAsString();
+        Assertions.assertThat(content).isEqualTo("Name 정보가 없습니다");
     }
 
     @Test
@@ -114,13 +120,15 @@ class UserAPIControllerTest {
             obj.addProperty("email", user.getEmail());
 
 
-            mockMvc.perform(post("/user/new")
+            MvcResult result = mockMvc.perform(post("/user/new")
                     .content(obj.toString())
                     .contentType(MediaType.APPLICATION_JSON)
                     .characterEncoding("UTF-8"))
                     .andDo(print())
                     .andExpect(status().isBadRequest())
-                    .andExpect(status().reason("회원 이메일 정보가 양식에 맞지 않습니다"));
+                    .andReturn();
+            String content = result.getResponse().getContentAsString();
+            Assertions.assertThat(content).isEqualTo("회원 이메일 정보가 양식에 맞지 않습니다");
         }
     }
 
@@ -161,13 +169,17 @@ class UserAPIControllerTest {
         obj.addProperty("email", newEmail);
 
         //then
-        mockMvc.perform(put("/user").param("id", "9999999999999")
+        MvcResult result = mockMvc.perform(put("/user").param("id", "9999999999999")
                 .content(obj.toString())
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8"))
                 .andDo(print())
                 .andExpect(status().isNoContent())
-                .andExpect(status().reason("No contents"));
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        Assertions.assertThat(content).isEqualTo("No contents");
+
 
     }
     @Test

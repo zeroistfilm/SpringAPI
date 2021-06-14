@@ -1,9 +1,9 @@
 package com.youngdong.woowahan.Service;
 
-import com.youngdong.woowahan.ServiceInterface.ServiceInterface;
 import com.youngdong.woowahan.DTO.UserDTO;
 import com.youngdong.woowahan.Entity.User;
 import com.youngdong.woowahan.RepositoryInterface.RepositoryInterface;
+import com.youngdong.woowahan.ServiceInterface.ServiceInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -24,9 +25,11 @@ public class UserService implements ServiceInterface<UserDTO, User> {
 
     @Override
     public User create(UserDTO userDTO) {
-        isVaild(userDTO);
-        User user = new User(userDTO.getName(), userDTO.getEmail());
-        return userRepository.save(user);
+
+            isVaild(userDTO);
+            User user = new User(userDTO.getName(), userDTO.getEmail());
+            return userRepository.save(user);
+
     }
 
     @Override
@@ -37,7 +40,7 @@ public class UserService implements ServiceInterface<UserDTO, User> {
             return userbyId.orElse(null);
         } else {
             log.info("Fail Read User");
-            throw new IllegalStateException("No content");
+            throw new NoSuchElementException("No content");
         }
 
     }
@@ -50,7 +53,7 @@ public class UserService implements ServiceInterface<UserDTO, User> {
             return userAll;
         } else {
             log.info("Fail Read All User");
-            throw new IllegalStateException("No content");
+            throw new NoSuchElementException("No content");
         }
 
     }
@@ -62,7 +65,7 @@ public class UserService implements ServiceInterface<UserDTO, User> {
 
         if (requestpage > allpages.getTotalPages()) {
             log.info("Out of page");
-            throw new IllegalStateException("out of page, MaxPage : " + allpages.getTotalPages());
+            throw new IllegalArgumentException("out of page, MaxPage : " + allpages.getTotalPages());
         } else {
             log.info("Success read user for paging");
             return allpages;
@@ -74,7 +77,7 @@ public class UserService implements ServiceInterface<UserDTO, User> {
     public void update(long id, UserDTO userDTO) {
         Optional<User> userbyId = userRepository.findById(id);
 
-        String newname= (!userDTO.getName().isEmpty()) ? userDTO.getName() : userbyId.get().getName();
+        String newname = (!userDTO.getName().isEmpty()) ? userDTO.getName() : userbyId.get().getName();
 
 
         userbyId.ifPresentOrElse(
@@ -85,7 +88,7 @@ public class UserService implements ServiceInterface<UserDTO, User> {
                 },
                 () -> {
                     log.info("Fail to update");
-                    throw new IllegalStateException("No contents");
+                    throw new NoSuchElementException("No contents");
                 });
     }
 
@@ -93,7 +96,7 @@ public class UserService implements ServiceInterface<UserDTO, User> {
     public void isVaild(UserDTO userDTO) {
         StringBuilder errorMessage = new StringBuilder();
         if (!userDTO.getEmail().isEmpty() && !isValidEmail(userDTO.getEmail())) {
-            throw new IllegalStateException("회원 이메일 정보가 양식에 맞지 않습니다");
+            throw new IllegalArgumentException("회원 이메일 정보가 양식에 맞지 않습니다");
         }
 
         if (userDTO.getName().isEmpty()) {
@@ -106,7 +109,7 @@ public class UserService implements ServiceInterface<UserDTO, User> {
 
         if (errorMessage.length() > 0) {
             errorMessage.append("정보가 없습니다");
-            throw new IllegalStateException(String.valueOf(errorMessage).strip());
+            throw new IllegalArgumentException(String.valueOf(errorMessage).strip());
         }
     }
 
