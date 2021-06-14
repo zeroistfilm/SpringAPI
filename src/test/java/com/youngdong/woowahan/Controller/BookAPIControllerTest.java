@@ -47,12 +47,10 @@ class BookAPIControllerTest {
                 {"스프링 부트 실전 활용 마스터 스프링 부트 개발과 운영부터 웹플럭스, R소켓", " 그렉 턴키스트", " 책만"},
                 {"스프링 마이크로서비스", "라제시 RV", "에이콘출판"},
                 {"D3.js 실시간 데이터 시각화 (Node.js 환경에서 실시간 대시보드 만들기)    ", "파블로 나바로 카스틸로", "에이콘출판"}
-
         };
 
         for (String[] casei : vailidTestCase) {
             Book book = new Book(casei[0], casei[1], casei[2]);
-//            System.out.println(book.getTitle()+book.getAuthor()+ book.getPublisher());
             //then
 
             JsonObject obj = new JsonObject();
@@ -98,14 +96,12 @@ class BookAPIControllerTest {
             }
             if (errorMessage.length() > 0) {
                 errorMessage.append("정보가 없습니다");
-
             }
 
             JsonObject obj = new JsonObject();
             obj.addProperty("title", book.getTitle());
             obj.addProperty("author", book.getAuthor());
             obj.addProperty("publisher", book.getPublisher());
-
 
             MvcResult result = mockMvc.perform(post("/book/new")
                     .content(obj.toString())

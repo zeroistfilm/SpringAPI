@@ -118,13 +118,13 @@
 
 ## 3.1 Response Status<br>
 
-| |성공|실패|
-|:---:|:---:|:---:|
-|Create|201|400|
-|ReadOne|200|204|
-|ReadAll|200|204|
-|ReadPage|200|400|
-|Update|201|204|
+| |성공|실패|Exception|Message|
+|:---:|:---:|:---:|:---:|:---:|
+|Create|201|400|IllegalArgumentException|잘못된 인자 전달| 
+|ReadOne|200|204|NoSuchElementException|특정ID 데이터 없음|
+|ReadAll|200|204|NoSuchElementException|데이터 없음|
+|ReadPage|200|400|IllegalArgumentException|잘못된 인자 전달|
+|Update|201|204|NoSuchElementException|특정ID 데이터 없음|
 
 
 # 4. 테스트<br>
