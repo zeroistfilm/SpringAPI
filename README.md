@@ -83,7 +83,7 @@
   - Update 
       - 유저 수정<br>
         PUT http://localhost:8080/user/?id={UID} <br>
-        JSON {uid, name, email} <br>
+        JSON {name} <br>
 
 - Book
   - Create
@@ -92,29 +92,29 @@
       JSON {title,author,publisher}
   - Read
     - 특정 책 조회<br>
-      GET http://localhost:8080/book/?id={UID}
+      GET http://localhost:8080/book/?id={BID}
     - 모든 책 조회<br>
       GET http://localhost:8080/book/all
     - 모든 책 조회(페이징)<br>
       GET http://localhost:8080/book/allPages?pagesize={pagesize}}&requestpage={requestpage}
   - Update
     - 책 정보 수정<br>
-      PUT http://localhost:8080/book/?id={UID} <br>
-      JSON {bid,title,author,publisher}
+      PUT http://localhost:8080/book/?id={BID} <br>
+      JSON {title,author,publisher}
 - Contents
   - Create
     - 발췌문 등록 <br>
       POST http://localhost:8080/contents/new <br>
       JSON {uid,bid,page,contents}
   - Read
-    - 특정 발췌문 조회<br>GET http://localhost:8080/contents/?id={UID}
+    - 특정 발췌문 조회<br>GET http://localhost:8080/contents/?id={CID}
     - 모든 발췌문 조회
       <br>GET http://localhost:8080/contents/all
     - 모든 발췌문 조회(페이징)<br>GET http://localhost:8080/contents/allPages?pagesize={pagesize}}&requestpage={requestpage}
   - Update
     - 발췌문 수정<br>
-      PUT http://localhost:8080/contents/?id={UID} <br>
-      JSON {cid,uid,bid,page,contents}
+      PUT http://localhost:8080/contents/?id={CID} <br>
+      JSON {page,contents}
 
 ## 3.1 Response Status<br>
 
