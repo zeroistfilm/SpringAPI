@@ -28,7 +28,7 @@ public class BookService implements ServiceInterface<BookDTO, Book> {
     public Book create(BookDTO bookDTO) {
         isVaild(bookDTO);
         Book book = new Book(bookDTO.getTitle(), bookDTO.getAuthor(), bookDTO.getPublisher());
-        log.info("Success create book" + book);
+        log.info("Success create book");
         return bookRepository.save(book);
     }
 
@@ -36,7 +36,7 @@ public class BookService implements ServiceInterface<BookDTO, Book> {
     public Book readOne(long id) {
         Optional<Book> bookbyId = bookRepository.findById(id);
         if (bookbyId.isPresent()) {
-            log.info("Success Read book" + bookbyId.get());
+            log.info("Success Read book");
             return bookbyId.orElse(null);
         } else {
             log.info("Fail Read book");
